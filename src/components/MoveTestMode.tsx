@@ -20,7 +20,7 @@ export default function MoveTestMode({ moves, theme }: MoveTestModeProps) {
     return (
       <section className={`rounded-xl border p-6 ${theme.cardBg} ${theme.border}`}>
         <h2 className={`text-xl font-semibold ${theme.text}`}>Test Mode</h2>
-        <p className="mt-3 text-sm text-zinc-700">No moves available for this belt yet.</p>
+        <p className="mt-3 text-sm text-zinc-300">No moves available for this belt yet.</p>
       </section>
     );
   }
@@ -53,24 +53,24 @@ export default function MoveTestMode({ moves, theme }: MoveTestModeProps) {
     <section className={`rounded-xl border p-6 ${theme.cardBg} ${theme.border}`}>
       <div className="flex items-center justify-between gap-2">
         <h2 className={`text-xl font-semibold ${theme.text}`}>Test Mode</h2>
-        <span className={`rounded-full px-3 py-1 text-xs font-semibold ${theme.accentMuted} ${theme.text}`}>
+        <span className={`rounded-full px-3 py-1 text-xs font-semibold ${theme.accentMuted}`}>
           {index + 1}/{sortedMoves.length}
         </span>
       </div>
-      <p className="mt-3 text-sm text-zinc-700">
+      <p className="mt-3 text-sm text-zinc-300">
         Try recalling details before revealing the answer.
       </p>
 
-      <div className={`mt-4 rounded-lg border p-5 ${theme.border} bg-white`}>
-        <p className="text-xs font-semibold tracking-wide text-zinc-500">Move Prompt</p>
-        <p className="mt-2 text-lg font-semibold text-zinc-900">{activeMove.name}</p>
+      <div className={`mt-4 rounded-lg border bg-zinc-900/90 p-5 ${theme.border}`}>
+        <p className="text-xs font-semibold tracking-wide text-zinc-400">Move Prompt</p>
+        <p className="mt-2 text-lg font-semibold text-zinc-100">{activeMove.name}</p>
 
         {reveal ? (
           <div className="mt-4 space-y-3">
-            <p className="text-sm text-zinc-800">{activeMove.summary}</p>
+            <p className="text-sm text-zinc-200">{activeMove.summary}</p>
             <div className="flex flex-wrap gap-2">
               {activeMove.tags.map((tag) => (
-                <span key={tag} className="rounded-full bg-zinc-100 px-2.5 py-1 text-xs text-zinc-700">
+                <span key={tag} className="rounded-full bg-zinc-800 px-2.5 py-1 text-xs text-zinc-200">
                   {tag}
                 </span>
               ))}
@@ -85,14 +85,14 @@ export default function MoveTestMode({ moves, theme }: MoveTestModeProps) {
         <button
           type="button"
           onClick={handlePrev}
-          className="rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50"
+          className="rounded-md border border-zinc-600 bg-zinc-900 px-3 py-2 text-sm font-medium text-zinc-200 hover:bg-zinc-800"
         >
           Previous
         </button>
         <button
           type="button"
           onClick={handleRandom}
-          className="rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50"
+          className="rounded-md border border-zinc-600 bg-zinc-900 px-3 py-2 text-sm font-medium text-zinc-200 hover:bg-zinc-800"
         >
           Random
         </button>
@@ -106,7 +106,7 @@ export default function MoveTestMode({ moves, theme }: MoveTestModeProps) {
         <button
           type="button"
           onClick={handleNext}
-          className="rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50"
+          className="rounded-md border border-zinc-600 bg-zinc-900 px-3 py-2 text-sm font-medium text-zinc-200 hover:bg-zinc-800"
         >
           Next
         </button>
@@ -114,4 +114,3 @@ export default function MoveTestMode({ moves, theme }: MoveTestModeProps) {
     </section>
   );
 }
-

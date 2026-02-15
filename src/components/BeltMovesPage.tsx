@@ -33,41 +33,43 @@ export default function BeltMovesPage({ track }: BeltMovesPageProps) {
   }, [query, track.moves]);
 
   return (
-    <main className={`min-h-screen bg-gradient-to-br ${track.theme.pageBg} p-4 md:p-8`}>
+    <main className={`min-h-screen bg-gradient-to-br ${track.theme.pageBg} p-4 text-zinc-100 md:p-8`}>
       <div className="mx-auto max-w-5xl space-y-6">
-        <header className={`rounded-2xl border p-6 ${track.theme.cardBg} ${track.theme.border}`}>
+        <header
+          className={`rounded-2xl border p-6 shadow-[0_0_60px_rgba(14,165,233,0.12)] backdrop-blur ${track.theme.cardBg} ${track.theme.border}`}
+        >
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-wider text-zinc-600">
+              <p className="text-sm font-semibold uppercase tracking-wider text-zinc-400">
                 Belt Track
               </p>
               <h1 className={`text-3xl font-bold ${track.theme.text}`}>{track.label}</h1>
-              <p className="mt-2 text-sm text-zinc-700">{track.subtitle}</p>
+              <p className="mt-2 text-sm text-zinc-300">{track.subtitle}</p>
             </div>
             <Link
               href={`/${track.slug}/training`}
-              className={`inline-flex h-10 items-center justify-center rounded-md px-4 text-sm font-semibold text-white ${track.theme.accent}`}
+              className={`inline-flex h-10 items-center justify-center rounded-md px-4 text-sm font-semibold text-white transition-colors ${track.theme.accent}`}
             >
               Training Recommendations
             </Link>
           </div>
         </header>
 
-        <section className={`rounded-2xl border p-4 ${track.theme.cardBg} ${track.theme.border}`}>
+        <section className={`rounded-2xl border p-4 backdrop-blur ${track.theme.cardBg} ${track.theme.border}`}>
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <label className="w-full md:max-w-md">
-              <span className="mb-2 block text-sm font-medium text-zinc-700">Search moves</span>
+              <span className="mb-2 block text-sm font-medium text-zinc-300">Search moves</span>
               <input
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder="Search by name, summary, or tag"
-                className="w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none ring-blue-300 focus:ring"
+                className="w-full rounded-md border border-zinc-600 bg-zinc-900/90 px-3 py-2 text-sm text-zinc-100 outline-none ring-sky-400 focus:ring"
               />
             </label>
             <button
               type="button"
               onClick={() => setTestMode((value) => !value)}
-              className={`h-10 rounded-md px-4 text-sm font-semibold text-white ${track.theme.accent}`}
+              className={`h-10 rounded-md px-4 text-sm font-semibold text-white transition-colors ${track.theme.accent}`}
             >
               {testMode ? "Exit Test Mode" : "Enter Test Mode"}
             </button>
@@ -77,34 +79,37 @@ export default function BeltMovesPage({ track }: BeltMovesPageProps) {
         {testMode ? (
           <MoveTestMode moves={filteredMoves} theme={track.theme} />
         ) : (
-          <section className={`rounded-2xl border p-4 ${track.theme.cardBg} ${track.theme.border}`}>
+          <section className={`rounded-2xl border p-4 backdrop-blur ${track.theme.cardBg} ${track.theme.border}`}>
             <div className="mb-4 flex items-center justify-between">
               <h2 className={`text-xl font-semibold ${track.theme.text}`}>Moves</h2>
-              <span className="text-sm text-zinc-600">
+              <span className="text-sm text-zinc-400">
                 Showing {filteredMoves.length} of {track.moves.length}
               </span>
             </div>
 
             {filteredMoves.length === 0 ? (
-              <p className="rounded-lg border border-dashed border-zinc-300 bg-white p-4 text-sm text-zinc-700">
+              <p className="rounded-lg border border-dashed border-zinc-500 bg-zinc-900/80 p-4 text-sm text-zinc-300">
                 No moves match that search.
               </p>
             ) : (
               <ul className="space-y-3">
                 {filteredMoves.map((move) => (
-                  <li key={move.id} className="rounded-lg border border-zinc-200 bg-white p-4">
+                  <li
+                    key={move.id}
+                    className="rounded-lg border border-zinc-700 bg-zinc-900/80 p-4"
+                  >
                     <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                       <div>
-                        <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+                        <p className="text-xs font-semibold uppercase tracking-wide text-zinc-400">
                           #{move.order}
                         </p>
-                        <h3 className="text-lg font-semibold text-zinc-900">{move.name}</h3>
-                        <p className="mt-1 text-sm text-zinc-700">{move.summary}</p>
+                        <h3 className="text-lg font-semibold text-zinc-100">{move.name}</h3>
+                        <p className="mt-1 text-sm text-zinc-300">{move.summary}</p>
                         <div className="mt-3 flex flex-wrap gap-2">
                           {move.tags.map((tag) => (
                             <span
                               key={tag}
-                              className={`rounded-full px-2.5 py-1 text-xs font-medium ${track.theme.accentMuted} ${track.theme.text}`}
+                              className={`rounded-full px-2.5 py-1 text-xs font-medium ${track.theme.accentMuted}`}
                             >
                               {tag}
                             </span>
@@ -114,7 +119,7 @@ export default function BeltMovesPage({ track }: BeltMovesPageProps) {
                       <button
                         type="button"
                         onClick={() => setVideoUrl(move.youtubeUrl)}
-                        className={`inline-flex h-9 items-center justify-center rounded-md px-3 text-sm font-semibold text-white ${track.theme.accent}`}
+                        className={`inline-flex h-9 items-center justify-center rounded-md px-3 text-sm font-semibold text-white transition-colors ${track.theme.accent}`}
                       >
                         Watch Video
                       </button>
@@ -129,18 +134,18 @@ export default function BeltMovesPage({ track }: BeltMovesPageProps) {
 
       {videoUrl ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
-          <div className="w-full max-w-3xl rounded-xl bg-white p-4 shadow-2xl">
+          <div className="w-full max-w-3xl rounded-xl border border-zinc-700 bg-zinc-950 p-4 shadow-2xl">
             <div className="mb-3 flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-zinc-900">YouTube Demo</h2>
+              <h2 className="text-lg font-semibold text-zinc-100">YouTube Demo</h2>
               <button
                 type="button"
                 onClick={() => setVideoUrl(null)}
-                className="rounded-md border border-zinc-300 px-3 py-1.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50"
+                className="rounded-md border border-zinc-600 px-3 py-1.5 text-sm font-medium text-zinc-200 hover:bg-zinc-800"
               >
                 Close
               </button>
             </div>
-            <div className="aspect-video overflow-hidden rounded-lg border border-zinc-200">
+            <div className="aspect-video overflow-hidden rounded-lg border border-zinc-700">
               <iframe
                 className="h-full w-full"
                 src={toEmbedUrl(videoUrl)}
@@ -173,4 +178,3 @@ function toEmbedUrl(url: string): string {
   }
   return url;
 }
-

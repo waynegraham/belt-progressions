@@ -21,6 +21,7 @@ export interface BeltTheme {
   accent: string;
   accentMuted: string;
   text: string;
+  trackBar: string;
 }
 
 export interface BeltTrack {
@@ -37,12 +38,13 @@ const whiteToBlue: BeltTrack = {
   label: "White to Blue",
   subtitle: "Core survival, escapes, and foundational attacks.",
   theme: {
-    pageBg: "from-zinc-100 via-sky-50 to-blue-100",
-    cardBg: "bg-white/85",
-    border: "border-blue-200",
-    accent: "bg-blue-600",
-    accentMuted: "bg-blue-100",
-    text: "text-blue-950",
+    pageBg: "from-[#04070f] via-[#071326] to-[#070b12]",
+    cardBg: "bg-[#0b1222]/75",
+    border: "border-[#1f2f4d]",
+    accent: "bg-sky-500 hover:bg-sky-400",
+    accentMuted: "bg-sky-500/20 text-sky-200",
+    text: "text-zinc-100",
+    trackBar: "from-sky-400 to-sky-600",
   },
   moves: [
     {
@@ -111,12 +113,13 @@ const blueToPurple: BeltTrack = {
   label: "Blue to Purple",
   subtitle: "Link attacks with transitions and positional control.",
   theme: {
-    pageBg: "from-blue-100 via-violet-50 to-purple-100",
-    cardBg: "bg-white/80",
-    border: "border-purple-200",
-    accent: "bg-purple-700",
-    accentMuted: "bg-purple-100",
-    text: "text-purple-950",
+    pageBg: "from-[#04070f] via-[#0f1026] to-[#070b12]",
+    cardBg: "bg-[#111126]/75",
+    border: "border-[#2a2b52]",
+    accent: "bg-violet-500 hover:bg-violet-400",
+    accentMuted: "bg-violet-500/20 text-violet-200",
+    text: "text-zinc-100",
+    trackBar: "from-violet-400 to-violet-600",
   },
   moves: [
     {
@@ -185,12 +188,13 @@ const purpleToBrown: BeltTrack = {
   label: "Purple to Brown",
   subtitle: "Refine decision-making, pressure, and high-percentage finishes.",
   theme: {
-    pageBg: "from-purple-100 via-amber-50 to-amber-200",
-    cardBg: "bg-white/80",
-    border: "border-amber-300",
-    accent: "bg-amber-700",
-    accentMuted: "bg-amber-100",
-    text: "text-amber-950",
+    pageBg: "from-[#06070d] via-[#1a1310] to-[#070b12]",
+    cardBg: "bg-[#1a1310]/75",
+    border: "border-[#4a3a2d]",
+    accent: "bg-amber-600 hover:bg-amber-500",
+    accentMuted: "bg-amber-500/20 text-amber-200",
+    text: "text-zinc-100",
+    trackBar: "from-amber-500 to-amber-700",
   },
   moves: [
     {
@@ -267,4 +271,3 @@ export const beltSlugs = Object.keys(beltTracks) as BeltSlug[];
 export function isBeltSlug(value: string): value is BeltSlug {
   return beltSlugs.includes(value as BeltSlug);
 }
-
