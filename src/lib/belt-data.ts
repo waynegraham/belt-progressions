@@ -41,10 +41,10 @@ const whiteToBlue: BeltTrack = {
     pageBg: "from-zinc-100 via-[#071326] to-[#070b12]",
     cardBg: "bg-[#0b1222]/75",
     border: "border-[#1f2f4d]",
-    accent: "bg-blue-900 hover:bg-blue-800",
-    accentMuted: "bg-blue-900/25 text-blue-100",
+    accent: "bg-blue-700 hover:bg-blue-800",
+    accentMuted: "bg-blue-700/25 text-blue-100",
     text: "text-zinc-100",
-    trackBar: "from-zinc-100 to-blue-900",
+    trackBar: "from-zinc-100 to-blue-700",
   },
   moves: [
     {
@@ -191,10 +191,10 @@ const purpleToBrown: BeltTrack = {
     pageBg: "from-purple-800 via-[#1a1310] to-[#070b12]",
     cardBg: "bg-[#1a1310]/75",
     border: "border-[#4a3a2d]",
-    accent: "bg-stone-500 hover:bg-stone-400",
-    accentMuted: "bg-stone-500/25 text-stone-100",
+    accent: "bg-yellow-900 hover:bg-yellow-800",
+    accentMuted: "bg-yellow-900/25 text-yellow-100",
     text: "text-zinc-100",
-    trackBar: "from-purple-800 to-stone-500",
+    trackBar: "from-purple-500 to-yellow-900",
   },
   moves: [
     {

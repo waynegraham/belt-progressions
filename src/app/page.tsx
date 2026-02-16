@@ -59,7 +59,7 @@ export default function Home() {
               >
                 Choose Your Path
               </a>
-              <a
+              {/* <a
                 href="#test-mode"
                 className="inline-flex h-11 items-center justify-center rounded-md border px-5 text-sm font-semibold"
                 style={{
@@ -69,10 +69,10 @@ export default function Home() {
                 }}
               >
                 Watch Demo
-              </a>
+              </a> */}
             </div>
             <p className="text-sm" style={{ color: "var(--text-muted)" }}>
-              Built to help athletes prepare with clarity and intent.
+              Built to help you prepare with clarity and intent.
             </p>
           </div>
 
