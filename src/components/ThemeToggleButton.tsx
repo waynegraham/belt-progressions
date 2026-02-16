@@ -21,12 +21,47 @@ export default function ThemeToggleButton() {
     <button
       type="button"
       onClick={toggleTheme}
-      className="inline-flex h-10 items-center justify-center rounded-md border bg-[var(--button-secondary-bg)] px-4 text-sm font-semibold text-[var(--button-secondary-text)] transition-colors hover:brightness-110"
+      className="inline-flex h-10 w-10 items-center justify-center rounded-md border bg-[var(--button-secondary-bg)] text-[var(--button-secondary-text)] transition-colors hover:brightness-110"
       style={{ borderColor: "var(--button-secondary-border)" }}
       aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
     >
-      {theme === "dark" ? "Light Theme" : "Dark Theme"}
+      {theme === "dark" ? <SunIcon /> : <MoonIcon />}
     </button>
+  );
+}
+
+function SunIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className="h-5 w-5"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2.2M12 19.8V22M4.93 4.93l1.56 1.56M17.51 17.51l1.56 1.56M2 12h2.2M19.8 12H22M4.93 19.07l1.56-1.56M17.51 6.49l1.56-1.56" />
+    </svg>
+  );
+}
+
+function MoonIcon() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className="h-5 w-5"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M21 14.5A8.5 8.5 0 1 1 9.5 3 7 7 0 1 0 21 14.5Z" />
+    </svg>
   );
 }
 

@@ -1,3 +1,6 @@
+import blueBeltData from "@/lib/blue-belt.json";
+import whiteBeltData from "@/lib/white-belt.json";
+
 export type BeltSlug = "white-to-blue" | "blue-to-purple" | "purple-to-brown";
 
 export interface BeltMove {
@@ -12,6 +15,12 @@ export interface BeltMove {
 export interface TrainingRecommendation {
   title: string;
   notes: string[];
+}
+
+export interface BeltMoveCategory {
+  id: string;
+  label: string;
+  moves: BeltMove[];
 }
 
 export interface BeltTheme {
@@ -30,8 +39,42 @@ export interface BeltTrack {
   subtitle: string;
   theme: BeltTheme;
   moves: BeltMove[];
+  moveCategories?: BeltMoveCategory[];
   trainingRecommendations: TrainingRecommendation[];
 }
+
+interface RawMoveCategory {
+  label: string;
+  moves: Array<{
+    name: string;
+    note: string;
+    youtube: string;
+  }>;
+}
+
+function mapRawMoveCategories(rawCategories: RawMoveCategory[], prefix: string): BeltMoveCategory[] {
+  let order = 0;
+
+  return rawCategories.map((category, categoryIndex) => ({
+    id: toSlug(category.label),
+    label: category.label,
+    moves: category.moves.map((move, moveIndex) => {
+      order += 1;
+
+      return {
+        id: `${prefix}-${categoryIndex + 1}-${moveIndex + 1}`,
+        name: move.name,
+        summary: move.note || "No notes provided.",
+        order,
+        tags: [category.label],
+        youtubeUrl: toYoutubeUrl(move.youtube),
+      };
+    }),
+  }));
+}
+
+const whiteToBlueCategories = mapRawMoveCategories(whiteBeltData as RawMoveCategory[], "w2b");
+const blueToPurpleCategories = mapRawMoveCategories(blueBeltData as RawMoveCategory[], "b2p");
 
 const whiteToBlue: BeltTrack = {
   slug: "white-to-blue",
@@ -46,48 +89,8 @@ const whiteToBlue: BeltTrack = {
     text: "text-zinc-100",
     trackBar: "from-zinc-100 to-blue-700",
   },
-  moves: [
-    {
-      id: "w2b-1",
-      name: "Technical Stand Up",
-      summary: "Build distance and stand without exposing your hips.",
-      order: 1,
-      tags: ["defense", "movement"],
-      youtubeUrl: "https://www.youtube.com/watch?v=0JjQfPAnN0w",
-    },
-    {
-      id: "w2b-2",
-      name: "Bridge and Roll Escape",
-      summary: "Trap arm and foot from mount to reverse top position.",
-      order: 2,
-      tags: ["mount escape"],
-      youtubeUrl: "https://www.youtube.com/watch?v=lXQIcqKf5Uw",
-    },
-    {
-      id: "w2b-3",
-      name: "Elbow-Knee Escape",
-      summary: "Recover half guard or full guard from low mount pressure.",
-      order: 3,
-      tags: ["mount escape", "guard recovery"],
-      youtubeUrl: "https://www.youtube.com/watch?v=THP0QAbA2Nw",
-    },
-    {
-      id: "w2b-4",
-      name: "Closed Guard Hip Bump Sweep",
-      summary: "Sit up sweep when opponent posts or pressures forward.",
-      order: 4,
-      tags: ["sweep", "closed guard"],
-      youtubeUrl: "https://www.youtube.com/watch?v=v3f9M4Jf1Dk",
-    },
-    {
-      id: "w2b-5",
-      name: "Cross Collar Choke from Guard",
-      summary: "Build deep collar grip sequence to finish from closed guard.",
-      order: 5,
-      tags: ["submission", "closed guard"],
-      youtubeUrl: "https://www.youtube.com/watch?v=t2XnG8x8Udk",
-    },
-  ],
+  moves: whiteToBlueCategories.flatMap((category) => category.moves),
+  moveCategories: whiteToBlueCategories,
   trainingRecommendations: [
     {
       title: "Escape Priority Rounds",
@@ -121,48 +124,8 @@ const blueToPurple: BeltTrack = {
     text: "text-zinc-100",
     trackBar: "from-blue-300 to-purple-800",
   },
-  moves: [
-    {
-      id: "b2p-1",
-      name: "Knee Cut Pass",
-      summary: "Pin the shield and control upper body to pass to side control.",
-      order: 1,
-      tags: ["guard pass", "pressure"],
-      youtubeUrl: "https://www.youtube.com/watch?v=WWQ8sA2Q4sQ",
-    },
-    {
-      id: "b2p-2",
-      name: "Back Take from Turtle",
-      summary: "Insert hooks and secure seatbelt while removing base posts.",
-      order: 2,
-      tags: ["back control", "transition"],
-      youtubeUrl: "https://www.youtube.com/watch?v=PBh0I4TGqeg",
-    },
-    {
-      id: "b2p-3",
-      name: "Bow and Arrow Choke",
-      summary: "Use collar and leg extension for a high-control back finish.",
-      order: 3,
-      tags: ["submission", "back control"],
-      youtubeUrl: "https://www.youtube.com/watch?v=tc4Q0Mda2_I",
-    },
-    {
-      id: "b2p-4",
-      name: "Kimura Trap to Back",
-      summary: "Chain kimura control into sweep or back exposure.",
-      order: 4,
-      tags: ["kimura", "transition"],
-      youtubeUrl: "https://www.youtube.com/watch?v=vZz17N7coMc",
-    },
-    {
-      id: "b2p-5",
-      name: "Single Leg X Sweep",
-      summary: "Off-balance and elevate to come up into top position.",
-      order: 5,
-      tags: ["sweep", "open guard"],
-      youtubeUrl: "https://www.youtube.com/watch?v=Jf6xgXN7f5c",
-    },
-  ],
+  moves: blueToPurpleCategories.flatMap((category) => category.moves),
+  moveCategories: blueToPurpleCategories,
   trainingRecommendations: [
     {
       title: "Chain-Attack Rounds",
@@ -270,4 +233,22 @@ export const beltSlugs = Object.keys(beltTracks) as BeltSlug[];
 
 export function isBeltSlug(value: string): value is BeltSlug {
   return beltSlugs.includes(value as BeltSlug);
+}
+
+function toSlug(value: string): string {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function toYoutubeUrl(value: string): string {
+  if (value.startsWith("http://") || value.startsWith("https://")) {
+    return value;
+  }
+
+  const [videoId, query] = value.split("?");
+  return query
+    ? `https://www.youtube.com/watch?v=${videoId}&${query}`
+    : `https://www.youtube.com/watch?v=${videoId}`;
 }

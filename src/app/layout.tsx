@@ -41,6 +41,20 @@ export default function RootLayout({
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
+        <footer
+          className="border-t px-4 py-6 text-center text-sm md:px-8"
+          style={{ borderColor: "var(--border-1)", backgroundColor: "var(--surface-1)" }}
+        >
+          <a
+            href="https://www.github.com/waynegraham/belt-progressions/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold hover:underline"
+            style={{ color: "var(--button-secondary-text)" }}
+          >
+            View Source
+          </a>
+        </footer>
       </body>
     </html>
   );

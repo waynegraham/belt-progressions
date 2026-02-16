@@ -3,6 +3,12 @@ import ThemeToggleButton from "@/components/ThemeToggleButton";
 import { beltTrackList } from "@/lib/belt-data";
 
 export default function Home() {
+  const buttonGlowByTrack = {
+    "white-to-blue": "0 0 24px rgba(29, 78, 216, 0.55)",
+    "blue-to-purple": "0 0 24px rgba(126, 34, 206, 0.5)",
+    "purple-to-brown": "0 0 24px rgba(113, 63, 18, 0.5)",
+  } as const;
+
   return (
     <main className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
       <div className="mx-auto max-w-6xl px-4 py-6 md:px-8 md:py-10">
@@ -15,18 +21,14 @@ export default function Home() {
           }}
         >
           <div className="flex items-center justify-between gap-3">
-            <p className="text-sm font-semibold tracking-wide md:text-lg">BJJ PROGRESSIONS</p>
+            <p className="text-sm font-semibold tracking-wide md:text-lg">BJJ Test Prep</p>
             <div className="flex items-center gap-4">
               <nav className="hidden gap-6 text-sm md:flex" style={{ color: "var(--nav-text)" }}>
-                <a href="#paths" className="hover:text-[var(--foreground)]">
-                  Belt Paths
-                </a>
-                <a href="#training" className="hover:text-[var(--foreground)]">
-                  Training Notes
-                </a>
-                <a href="#test-mode" className="hover:text-[var(--foreground)]">
-                  Test Mode
-                </a>
+                {beltTrackList.map((track) => (
+                  <Link key={track.slug} href={`/${track.slug}`} className="hover:text-[var(--foreground)]">
+                    {track.label}
+                  </Link>
+                ))}
               </nav>
               <ThemeToggleButton />
             </div>
@@ -52,27 +54,20 @@ export default function Home() {
               A focused prep framework for what to drill, how to review, and how to train for
               your promotion test.
             </p>
-            <div className="flex flex-wrap gap-3">
-              <a
-                href="#paths"
-                className="inline-flex h-11 items-center justify-center rounded-md bg-sky-500 px-5 text-sm font-semibold text-white hover:bg-sky-400"
-              >
-                Choose Your Path
-              </a>
-              {/* <a
-                href="#test-mode"
-                className="inline-flex h-11 items-center justify-center rounded-md border px-5 text-sm font-semibold"
-                style={{
-                  borderColor: "var(--button-secondary-border)",
-                  backgroundColor: "var(--button-secondary-bg)",
-                  color: "var(--button-secondary-text)",
-                }}
-              >
-                Watch Demo
-              </a> */}
+            <div className="grid gap-3 sm:grid-cols-3">
+              {beltTrackList.map((track) => (
+                <Link
+                  key={track.slug}
+                  href={`/${track.slug}`}
+                  className={`inline-flex h-11 items-center justify-center rounded-md px-4 text-sm font-semibold text-white transition-all hover:brightness-110 ${track.theme.accent}`}
+                  style={{ boxShadow: buttonGlowByTrack[track.slug] }}
+                >
+                  {track.label}
+                </Link>
+              ))}
             </div>
             <p className="text-sm" style={{ color: "var(--text-muted)" }}>
-              Built to help you prepare with clarity and intent.
+              A community resource to help you prepare with clarity and intent. 
             </p>
           </div>
 
@@ -86,73 +81,6 @@ export default function Home() {
                   "url('https://images.unsplash.com/photo-1517438476312-10d79c077509?auto=format&fit=crop&w=1200&q=80')",
               }}
             />
-          </div>
-        </section>
-
-        <section id="paths" className="mt-10 space-y-4">
-          <h2 className="text-4xl font-bold leading-tight md:text-5xl">
-            Choose Your{" "}
-            <span className="bg-gradient-to-r from-sky-300 to-sky-500 bg-clip-text text-transparent">
-              Test Prep Track
-            </span>
-          </h2>
-          <p className="max-w-2xl text-lg" style={{ color: "var(--text-muted)" }}>
-            Select your current belt and use this structure to guide drilling, study, and test-day
-            readiness.
-          </p>
-        </section>
-
-        <section id="test-mode" className="mt-6 grid gap-4 md:grid-cols-3">
-          {beltTrackList.map((track) => (
-            <article
-              key={track.slug}
-              className="overflow-hidden rounded-2xl border"
-              style={{ borderColor: "var(--border-1)", backgroundColor: "var(--surface-1)" }}
-            >
-              <div className={`h-7 w-full bg-gradient-to-r ${track.theme.trackBar}`} />
-              <div className="p-5">
-                <h2 className="text-3xl font-semibold">{track.label}</h2>
-                <p className="mt-3 min-h-16 text-base" style={{ color: "var(--text-muted)" }}>
-                  {track.subtitle}
-                </p>
-                <div className="mt-5 flex gap-2">
-                  <Link
-                    href={`/${track.slug}`}
-                    className={`inline-flex h-10 items-center justify-center rounded-md px-4 text-sm font-semibold text-white ${track.theme.accent}`}
-                  >
-                    Start Preparation
-                  </Link>
-                </div>
-              </div>
-            </article>
-          ))}
-        </section>
-
-        <section
-          id="training"
-          className="mt-10 rounded-2xl border p-6"
-          style={{ borderColor: "var(--border-1)", backgroundColor: "var(--surface-1)" }}
-        >
-          <h3 className="text-2xl font-bold">Training Notes Included</h3>
-          <p className="mt-2" style={{ color: "var(--text-muted)" }}>
-            Every track includes a dedicated recommendations page and test mode for move recall
-            under pressure.
-          </p>
-          <div className="mt-4 flex flex-wrap gap-2">
-            {beltTrackList.map((track) => (
-              <Link
-                key={track.slug}
-                href={`/${track.slug}/training`}
-                className="inline-flex h-10 items-center justify-center rounded-md border px-4 text-sm font-semibold"
-                style={{
-                  borderColor: "var(--button-secondary-border)",
-                  backgroundColor: "var(--button-secondary-bg)",
-                  color: "var(--button-secondary-text)",
-                }}
-              >
-                {track.label} Notes
-              </Link>
-            ))}
           </div>
         </section>
       </div>
