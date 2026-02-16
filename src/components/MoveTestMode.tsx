@@ -18,9 +18,12 @@ export default function MoveTestMode({ moves, theme }: MoveTestModeProps) {
 
   if (sortedMoves.length === 0) {
     return (
-      <section className={`rounded-xl border p-6 ${theme.cardBg} ${theme.border}`}>
-        <h2 className={`text-xl font-semibold ${theme.text}`}>Test Mode</h2>
-        <p className="mt-3 text-sm text-zinc-300">No moves available for this belt yet.</p>
+      <section
+        className="rounded-xl border p-6"
+        style={{ borderColor: "var(--border-1)", backgroundColor: "var(--surface-1)" }}
+      >
+        <h2 className="text-xl font-semibold text-[var(--foreground)]">Test Mode</h2>
+        <p className="mt-3 text-sm text-[var(--text-muted)]">No moves available for this belt yet.</p>
       </section>
     );
   }
@@ -50,34 +53,44 @@ export default function MoveTestMode({ moves, theme }: MoveTestModeProps) {
   };
 
   return (
-    <section className={`rounded-xl border p-6 ${theme.cardBg} ${theme.border}`}>
+    <section
+      className="rounded-xl border p-6"
+      style={{ borderColor: "var(--border-1)", backgroundColor: "var(--surface-1)" }}
+    >
       <div className="flex items-center justify-between gap-2">
-        <h2 className={`text-xl font-semibold ${theme.text}`}>Test Mode</h2>
+        <h2 className="text-xl font-semibold text-[var(--foreground)]">Test Mode</h2>
         <span className={`rounded-full px-3 py-1 text-xs font-semibold ${theme.accentMuted}`}>
           {index + 1}/{sortedMoves.length}
         </span>
       </div>
-      <p className="mt-3 text-sm text-zinc-300">
+      <p className="mt-3 text-sm text-[var(--text-muted)]">
         Try recalling details before revealing the answer.
       </p>
 
-      <div className={`mt-4 rounded-lg border bg-zinc-900/90 p-5 ${theme.border}`}>
-        <p className="text-xs font-semibold tracking-wide text-zinc-400">Move Prompt</p>
-        <p className="mt-2 text-lg font-semibold text-zinc-100">{activeMove.name}</p>
+      <div
+        className="mt-4 rounded-lg border p-5"
+        style={{ borderColor: "var(--panel-border)", backgroundColor: "var(--panel-strong)" }}
+      >
+        <p className="text-xs font-semibold tracking-wide text-[var(--muted-subtle)]">Move Prompt</p>
+        <p className="mt-2 text-lg font-semibold text-[var(--foreground)]">{activeMove.name}</p>
 
         {reveal ? (
           <div className="mt-4 space-y-3">
-            <p className="text-sm text-zinc-200">{activeMove.summary}</p>
+            <p className="text-sm text-[var(--text-muted)]">{activeMove.summary}</p>
             <div className="flex flex-wrap gap-2">
               {activeMove.tags.map((tag) => (
-                <span key={tag} className="rounded-full bg-zinc-800 px-2.5 py-1 text-xs text-zinc-200">
+                <span
+                  key={tag}
+                  className="rounded-full px-2.5 py-1 text-xs"
+                  style={{ backgroundColor: "var(--panel-soft)", color: "var(--text-muted)" }}
+                >
                   {tag}
                 </span>
               ))}
             </div>
           </div>
         ) : (
-          <p className="mt-4 text-sm text-zinc-500">Hidden until revealed.</p>
+          <p className="mt-4 text-sm text-[var(--muted-subtle)]">Hidden until revealed.</p>
         )}
       </div>
 
@@ -85,14 +98,24 @@ export default function MoveTestMode({ moves, theme }: MoveTestModeProps) {
         <button
           type="button"
           onClick={handlePrev}
-          className="rounded-md border border-zinc-600 bg-zinc-900 px-3 py-2 text-sm font-medium text-zinc-200 hover:bg-zinc-800"
+          className="rounded-md border px-3 py-2 text-sm font-medium hover:brightness-110"
+          style={{
+            borderColor: "var(--button-secondary-border)",
+            backgroundColor: "var(--button-secondary-bg)",
+            color: "var(--button-secondary-text)",
+          }}
         >
           Previous
         </button>
         <button
           type="button"
           onClick={handleRandom}
-          className="rounded-md border border-zinc-600 bg-zinc-900 px-3 py-2 text-sm font-medium text-zinc-200 hover:bg-zinc-800"
+          className="rounded-md border px-3 py-2 text-sm font-medium hover:brightness-110"
+          style={{
+            borderColor: "var(--button-secondary-border)",
+            backgroundColor: "var(--button-secondary-bg)",
+            color: "var(--button-secondary-text)",
+          }}
         >
           Random
         </button>
@@ -106,7 +129,12 @@ export default function MoveTestMode({ moves, theme }: MoveTestModeProps) {
         <button
           type="button"
           onClick={handleNext}
-          className="rounded-md border border-zinc-600 bg-zinc-900 px-3 py-2 text-sm font-medium text-zinc-200 hover:bg-zinc-800"
+          className="rounded-md border px-3 py-2 text-sm font-medium hover:brightness-110"
+          style={{
+            borderColor: "var(--button-secondary-border)",
+            backgroundColor: "var(--button-secondary-bg)",
+            color: "var(--button-secondary-text)",
+          }}
         >
           Next
         </button>

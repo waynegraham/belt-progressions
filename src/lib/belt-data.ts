@@ -38,13 +38,13 @@ const whiteToBlue: BeltTrack = {
   label: "White to Blue",
   subtitle: "Core survival, escapes, and foundational attacks.",
   theme: {
-    pageBg: "from-[#04070f] via-[#071326] to-[#070b12]",
+    pageBg: "from-zinc-100 via-[#071326] to-[#070b12]",
     cardBg: "bg-[#0b1222]/75",
     border: "border-[#1f2f4d]",
-    accent: "bg-sky-500 hover:bg-sky-400",
-    accentMuted: "bg-sky-500/20 text-sky-200",
+    accent: "bg-blue-900 hover:bg-blue-800",
+    accentMuted: "bg-blue-900/25 text-blue-100",
     text: "text-zinc-100",
-    trackBar: "from-sky-400 to-sky-600",
+    trackBar: "from-zinc-100 to-blue-900",
   },
   moves: [
     {
@@ -113,13 +113,13 @@ const blueToPurple: BeltTrack = {
   label: "Blue to Purple",
   subtitle: "Link attacks with transitions and positional control.",
   theme: {
-    pageBg: "from-[#04070f] via-[#0f1026] to-[#070b12]",
+    pageBg: "from-blue-300 via-[#0f1026] to-[#070b12]",
     cardBg: "bg-[#111126]/75",
     border: "border-[#2a2b52]",
-    accent: "bg-violet-500 hover:bg-violet-400",
-    accentMuted: "bg-violet-500/20 text-violet-200",
+    accent: "bg-purple-800 hover:bg-purple-700",
+    accentMuted: "bg-purple-800/25 text-purple-100",
     text: "text-zinc-100",
-    trackBar: "from-violet-400 to-violet-600",
+    trackBar: "from-blue-300 to-purple-800",
   },
   moves: [
     {
@@ -188,13 +188,13 @@ const purpleToBrown: BeltTrack = {
   label: "Purple to Brown",
   subtitle: "Refine decision-making, pressure, and high-percentage finishes.",
   theme: {
-    pageBg: "from-[#06070d] via-[#1a1310] to-[#070b12]",
+    pageBg: "from-purple-800 via-[#1a1310] to-[#070b12]",
     cardBg: "bg-[#1a1310]/75",
     border: "border-[#4a3a2d]",
-    accent: "bg-amber-600 hover:bg-amber-500",
-    accentMuted: "bg-amber-500/20 text-amber-200",
+    accent: "bg-stone-500 hover:bg-stone-400",
+    accentMuted: "bg-stone-500/25 text-stone-100",
     text: "text-zinc-100",
-    trackBar: "from-amber-500 to-amber-700",
+    trackBar: "from-purple-800 to-stone-500",
   },
   moves: [
     {
