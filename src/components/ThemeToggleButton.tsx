@@ -25,6 +25,7 @@ export default function ThemeToggleButton() {
       className="inline-flex h-10 w-10 items-center justify-center rounded-md border bg-[var(--button-secondary-bg)] text-[var(--button-secondary-text)] transition-colors hover:brightness-110"
       style={{ borderColor: "var(--button-secondary-border)" }}
       aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+      aria-pressed={theme === "dark"}
     >
       {theme === "dark" ? <IoSunny className="h-5 w-5" aria-hidden="true" /> : <IoMoon className="h-5 w-5" aria-hidden="true" />}
     </button>

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import MoveTestMode from "@/components/MoveTestMode";
 import ThemeToggleButton from "@/components/ThemeToggleButton";
@@ -45,6 +45,10 @@ export default function BeltMovesPage({ track }: BeltMovesPageProps) {
   const searchParamsString = searchParams?.toString() ?? "";
   const cleanedQuery = query.trim().toLowerCase();
   const primaryTheme = primaryThemeByTrack[track.slug];
+  const mainRef = useRef<HTMLElement | null>(null);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+  const lastFocusedElementRef = useRef<HTMLElement | null>(null);
 
   const allMoves = useMemo(() => [...track.moves].sort((a, b) => a.order - b.order), [track.moves]);
 
@@ -106,6 +110,10 @@ export default function BeltMovesPage({ track }: BeltMovesPageProps) {
 
   const openVideoModal = useCallback(
     (videoId: string) => {
+      const activeElement = document.activeElement;
+      if (activeElement instanceof HTMLElement) {
+        lastFocusedElementRef.current = activeElement;
+      }
       const nextParams = new URLSearchParams(searchParamsString);
       nextParams.set("video", videoId);
       router.push(`${currentPathname}?${nextParams.toString()}`, { scroll: false });
@@ -129,10 +137,81 @@ export default function BeltMovesPage({ track }: BeltMovesPageProps) {
     if (!activeMove) {
       return;
     }
+    closeButtonRef.current?.focus();
+  }, [activeMove]);
+
+  useEffect(() => {
+    if (!activeMove) {
+      lastFocusedElementRef.current?.focus();
+      return;
+    }
+
+    const footer = document.querySelector("footer");
+    const main = mainRef.current;
+    if (main) {
+      main.setAttribute("inert", "");
+      main.setAttribute("aria-hidden", "true");
+    }
+    if (footer instanceof HTMLElement) {
+      footer.setAttribute("inert", "");
+      footer.setAttribute("aria-hidden", "true");
+    }
+    return () => {
+      if (main) {
+        main.removeAttribute("inert");
+        main.removeAttribute("aria-hidden");
+      }
+      if (footer instanceof HTMLElement) {
+        footer.removeAttribute("inert");
+        footer.removeAttribute("aria-hidden");
+      }
+    };
+  }, [activeMove]);
+
+  useEffect(() => {
+    if (!activeMove) {
+      return;
+    }
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         closeVideoModal();
+        return;
+      }
+      if (event.key !== "Tab") {
+        return;
+      }
+      const dialog = dialogRef.current;
+      if (!dialog) {
+        return;
+      }
+
+      const selectors = [
+        "a[href]",
+        "button:not([disabled])",
+        "textarea:not([disabled])",
+        "input:not([disabled])",
+        "select:not([disabled])",
+        '[tabindex]:not([tabindex="-1"])',
+      ];
+      const focusable = Array.from(dialog.querySelectorAll<HTMLElement>(selectors.join(","))).filter(
+        (element) => !element.hasAttribute("disabled") && element.getAttribute("aria-hidden") !== "true",
+      );
+      if (focusable.length === 0) {
+        event.preventDefault();
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const activeElement = document.activeElement;
+
+      if (event.shiftKey && activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && activeElement === last) {
+        event.preventDefault();
+        first.focus();
       }
     };
 
@@ -144,7 +223,7 @@ export default function BeltMovesPage({ track }: BeltMovesPageProps) {
 
   return (
     <>
-      <main className="min-h-screen bg-[var(--background)] p-4 text-[var(--foreground)] md:p-8">
+      <main ref={mainRef} className="min-h-screen bg-[var(--background)] p-4 text-[var(--foreground)] md:p-8">
         <div className="mx-auto max-w-4xl space-y-5">
           <header className="space-y-4">
             <div className="flex items-center justify-between gap-3">
@@ -202,10 +281,12 @@ export default function BeltMovesPage({ track }: BeltMovesPageProps) {
             <p className={`text-sm underline underline-offset-2 ${primaryTheme.textClass}`}>Reference</p>
 
             <label className="block max-w-2xl">
+              <span className="sr-only">Search techniques</span>
               <input
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder="Search"
+                aria-label="Search techniques"
                 className="w-full rounded-md border px-3 py-2 text-sm outline-none ring-sky-400 focus:ring"
                 style={{
                   borderColor: "var(--input-border)",
@@ -233,7 +314,7 @@ export default function BeltMovesPage({ track }: BeltMovesPageProps) {
             <section className="space-y-5">
               {filteredCategories.map((category) => (
                 <section key={category.id} id={category.id} className="scroll-mt-24">
-                  <h3 id={category.id} className="text-3xl font-semibold">
+                  <h3 className="text-3xl font-semibold">
                     {category.label}
                   </h3>
                   <ul className="mt-2 list-disc space-y-1 pl-5 text-base marker:text-[var(--foreground)]">
@@ -264,6 +345,7 @@ export default function BeltMovesPage({ track }: BeltMovesPageProps) {
       {activeMove ? (
         <div className="fixed inset-0 z-50 bg-black/70 p-0 md:p-6" onClick={closeVideoModal}>
           <div
+            ref={dialogRef}
             role="dialog"
             aria-modal="true"
             aria-label={`${activeMove.name} video`}
@@ -273,6 +355,7 @@ export default function BeltMovesPage({ track }: BeltMovesPageProps) {
             <div className="flex items-center justify-between px-4 py-3 text-white">
               <p className="truncate pr-4 text-sm font-semibold md:text-base">{activeMove.name}</p>
               <button
+                ref={closeButtonRef}
                 type="button"
                 onClick={closeVideoModal}
                 className="rounded border border-white/40 px-3 py-1 text-sm hover:bg-white/10"
@@ -320,6 +403,7 @@ function TrackLink({ active, href, activeClassName, children }: TrackLinkProps) 
     <Link
       href={href}
       className={active ? activeClassName : "font-semibold hover:underline"}
+      aria-current={active ? "page" : undefined}
     >
       {children}
     </Link>
