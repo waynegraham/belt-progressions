@@ -1,12 +1,72 @@
-# Belt Curriculum Review
+# Belt Progressions
 
-This is a review guide for the PSBJJ belt demonstrations. This is meant to be an engine for the White-to-Blue, Blue-to-Purple, and Purple-to-Brown demonstrations, along with (hopefully) useful tips to more effectively study.
+A Next.js study and test-prep app for PSBJJ belt demonstrations.
 
-This combines individual web applications that were easy to maintain when it was just a list of moves. However, as useful features have been added, it's become more difficult to keep feature partity in line.
+The project unifies curriculum review and preparation workflows for:
+- White to Blue
+- Blue to Purple
+- Purple to Brown
 
-## Highlights
+## Features
 
-* Search curriculum organized by section with notes 
-* Videos skip to showing the moves (to help with name recognition)
-* "Test Mode" with big text, swipe actions, and "voice mode" (e.g. next, previous, tap out)
-* Light/Dark mode toggle and print-friendly layout
+- Curriculum pages grouped by section with searchable moves and notes
+- Video modal playback with YouTube timestamp support
+- Fullscreen Test Mode
+- Swipe navigation (up/right next, down/left previous)
+- Voice commands (`next`, `previous`, `tap out`, `exit`)
+- Completion state and restart flow
+- belt-specific color themes
+- Light/dark mode toggle (persisted in `localStorage`)
+- Track-specific training/preparation guide pages
+- Print-friendly curriculum layout
+
+## Tech Stack
+
+- Next.js 16 (App Router)
+- React 19 + TypeScript
+- Tailwind CSS 4
+- Jest + Testing Library
+
+## Project Structure
+
+- `src/app/page.tsx`: home page / belt selection
+- `src/app/[belt]/page.tsx`: curriculum page per belt
+- `src/app/[belt]/training/page.tsx`: training guide per belt
+- `src/components/BeltMovesPage.tsx`: searchable move list + video modal + Test Mode entry
+- `src/components/MoveTestMode.tsx`: fullscreen test experience
+- `src/lib/belt-data.ts`: normalized belt track data, themes, and utilities
+- `src/lib/white-belt.json`, `src/lib/blue-belt.json`: source move lists
+
+## Local Development
+
+1. Install dependencies:
+```bash
+npm install
+```
+
+2. Start the dev server:
+```bash
+npm run dev
+```
+
+3. Open:
+`http://localhost:3000`
+
+## Scripts
+
+- `npm run dev`: run local development server
+- `npm run build`: production build
+- `npm run start`: run production server
+- `npm run lint`: run ESLint
+- `npm test`: run Jest test suite
+
+## Data and Content Updates
+
+- Update source move lists in `src/lib/white-belt.json` and `src/lib/blue-belt.json`.
+- Belt metadata, themes, and derived move mapping live in `src/lib/belt-data.ts`.
+- Training guide copy lives in `src/app/[belt]/training/page.tsx`.
+
+## Notes
+
+- YouTube links in the JSON can include timestamp query params and are normalized for embed playback.
+- `MoveTestMode` requests fullscreen/wake-lock where supported and falls back gracefully if blocked.

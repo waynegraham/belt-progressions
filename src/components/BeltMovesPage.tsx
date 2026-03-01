@@ -304,7 +304,7 @@ export default function BeltMovesPage({ track }: BeltMovesPageProps) {
           </header>
 
           {testMode ? (
-            <MoveTestMode moves={filteredMoves} theme={track.theme} />
+            <MoveTestMode moves={allMoves} theme={track.theme} onExit={() => setTestMode(false)} />
           ) : filteredMoves.length === 0 ? (
             <section
               className="rounded-lg border border-dashed p-4 text-sm"

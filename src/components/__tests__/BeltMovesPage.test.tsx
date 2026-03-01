@@ -124,7 +124,8 @@ describe("BeltMovesPage", () => {
     fireEvent.click(screen.getByRole("button", { name: "Test Mode" }));
 
     expect(screen.getByRole("button", { name: "Exit Test Mode" })).toBeInTheDocument();
-    expect(screen.getByText("Move Prompt")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Exit Fullscreen" })).toBeInTheDocument();
+    expect(screen.getByText("Move 1 of 3")).toBeInTheDocument();
   });
 
   it("opens video modal from URL param and closes it", () => {

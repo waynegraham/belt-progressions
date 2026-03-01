@@ -32,39 +32,38 @@ const moves: BeltMove[] = [
 ];
 
 describe("MoveTestMode", () => {
-  it("shows moves in order and toggles reveal details", () => {
-    render(<MoveTestMode moves={moves} theme={theme} />);
+  it("shows moves in order and advances with keyboard navigation", () => {
+    render(<MoveTestMode moves={moves} theme={theme} onExit={jest.fn()} />);
 
     expect(screen.getByText("First Move")).toBeInTheDocument();
-    expect(screen.getByText("1/2")).toBeInTheDocument();
-    expect(screen.getByText("Hidden until revealed.")).toBeInTheDocument();
+    expect(screen.getByText("Move 1 of 2")).toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole("button", { name: "Reveal Details" }));
-
-    expect(screen.getByText("First summary")).toBeInTheDocument();
-    expect(screen.getByText("pass")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Hide Details" })).toBeInTheDocument();
-  });
-
-  it("wraps previous/next navigation and resets revealed state", () => {
-    render(<MoveTestMode moves={moves} theme={theme} />);
-
-    fireEvent.click(screen.getByRole("button", { name: "Reveal Details" }));
-    fireEvent.click(screen.getByRole("button", { name: "Previous" }));
+    fireEvent.keyDown(window, { key: "ArrowRight" });
 
     expect(screen.getByText("Second Move")).toBeInTheDocument();
-    expect(screen.getByText("2/2")).toBeInTheDocument();
-    expect(screen.getByText("Hidden until revealed.")).toBeInTheDocument();
+    expect(screen.getByText("Move 2 of 2")).toBeInTheDocument();
+  });
 
-    fireEvent.click(screen.getByRole("button", { name: "Next" }));
+  it("shows completion screen after the final move", () => {
+    render(<MoveTestMode moves={moves} theme={theme} onExit={jest.fn()} />);
 
-    expect(screen.getByText("First Move")).toBeInTheDocument();
-    expect(screen.getByText("1/2")).toBeInTheDocument();
+    fireEvent.keyDown(window, { key: "ArrowRight" });
+    fireEvent.keyDown(window, { key: "ArrowRight" });
+    expect(screen.getByText("Completion")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Restart" })).toBeInTheDocument();
+  });
+
+  it("calls onExit when exit is clicked", () => {
+    const onExit = jest.fn();
+    render(<MoveTestMode moves={moves} theme={theme} onExit={onExit} />);
+
+    fireEvent.click(screen.getByRole("button", { name: "Exit Fullscreen" }));
+    expect(onExit).toHaveBeenCalledTimes(1);
   });
 
   it("shows empty state when there are no moves", () => {
-    render(<MoveTestMode moves={[]} theme={theme} />);
+    render(<MoveTestMode moves={[]} theme={theme} onExit={jest.fn()} />);
 
-    expect(screen.getByText("No moves available for this belt yet.")).toBeInTheDocument();
+    expect(screen.getByText("No moves available.")).toBeInTheDocument();
   });
 });
