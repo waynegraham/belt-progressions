@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "BJJ Belt Progressions",
   description: "Track moves, test your recall, and prepare for belt promotion.",
+  icons: {
+    icon: "/gracie.webp",
+  },
 };
 
 export default function RootLayout({
