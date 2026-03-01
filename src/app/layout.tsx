@@ -61,7 +61,7 @@ export default function RootLayout({
                 </a>
               </li>
               <li>
-                <a className="inline-flex items-center gap-1" target="_blank" rel="noopener noreferrer" href="https://github.com/waynegraham/belt-progressions/LICENSE">
+                <a className="inline-flex items-center gap-1" target="_blank" rel="noopener noreferrer" href="https://github.com/waynegraham/belt-progressions/blob/main/LICENSE">
                   mit license
                   <GoArrowUpRight aria-hidden="true" />
                 </a>
