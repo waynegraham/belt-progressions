@@ -253,12 +253,12 @@ export default function BeltMovesPage({ track }: BeltMovesPageProps) {
               <ThemeToggleButton />
             </div>
 
-            <h1 className={`text-5xl font-bold leading-tight md:text-7xl ${primaryTheme.textClass}`}>
-              {track.label} <span className="text-2xl align-middle md:text-3xl">Curriculum</span>
+            <h1 className={`text-7xl font-extrabold leading-tight md:text-7xl print:bg-none print-text ${primaryTheme.textClass}`}>
+              {track.label} 
             </h1>
 
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted-subtle)]">Techniques</h2>
-            <p className={`text-3xl font-semibold md:text-4xl ${primaryTheme.textClass}`}>
+            {/* <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted-subtle)]">Curriculum Techniques</h2> */}
+            <p className={`inline-block mb-8 text-2xl font-semibold tracking-tighter ${primaryTheme.textClass}`}>
               {toRequirementTitle(track.label)}
             </p>
 
@@ -281,7 +281,7 @@ export default function BeltMovesPage({ track }: BeltMovesPageProps) {
             <p>
               <a target="_blank" rel="nofollow" href="https://waynegraham.github.io/bjj-study-guide/gracie-jiu-jitsu_compress.pdf" className={`text-sm underline underline-offset-2 ${primaryTheme.textClass}`}>Reference</a>
             </p>
-            <label className="block max-w-2xl">
+            <label className="block">
               <span className="sr-only">Search techniques</span>
               <input
                 value={query}
@@ -315,7 +315,7 @@ export default function BeltMovesPage({ track }: BeltMovesPageProps) {
             <section className="space-y-5">
               {filteredCategories.map((category) => (
                 <section key={category.id} id={category.id} className="scroll-mt-24">
-                  <h3 className="text-3xl font-semibold">
+                  <h3 className="my-3 text-xl print:my-0 text-gray-900 dark:text-gray-300">
                     {category.label}
                   </h3>
                   <ul className="mt-2 list-disc space-y-1 pl-5 text-base marker:text-[var(--foreground)]">

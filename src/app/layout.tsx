@@ -71,20 +71,6 @@ export default function RootLayout({
             <p className="mt-8 text-neutral-600 dark:text-neutral-300">&copy; {new Date().getFullYear()} <a href="https://waynegraham.github.io">Wayne Graham</a></p>
           </div>
         </footer>
-        {/* <footer
-          className="border-t px-4 py-6 text-center text-sm md:px-8"
-          style={{ borderColor: "var(--border-1)", backgroundColor: "var(--surface-1)" }}
-        >
-          <a
-            href="https://www.github.com/waynegraham/belt-progressions/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-semibold hover:underline"
-            style={{ color: "var(--button-secondary-text)" }}
-          >
-            View Source
-          </a>
-        </footer> */}
       </body>
     </html>
   );
