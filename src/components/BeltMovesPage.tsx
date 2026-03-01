@@ -278,8 +278,9 @@ export default function BeltMovesPage({ track }: BeltMovesPageProps) {
                 Test Preparation Guide
               </Link>
             </div>
-            <p className={`text-sm underline underline-offset-2 ${primaryTheme.textClass}`}>Reference</p>
-
+            <p>
+              <a target="_blank" rel="nofollow" href="https://waynegraham.github.io/bjj-study-guide/gracie-jiu-jitsu_compress.pdf" className={`text-sm underline underline-offset-2 ${primaryTheme.textClass}`}>Reference</a>
+            </p>
             <label className="block max-w-2xl">
               <span className="sr-only">Search techniques</span>
               <input
