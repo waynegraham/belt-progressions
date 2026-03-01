@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   title: "BJJ Belt Progressions",
   description: "Track moves, test your recall, and prepare for belt promotion.",
   icons: {
-    icon: "/gracie.webp",
+    icon: "/belt-progressions/gracie.webp",
   },
 };
 
