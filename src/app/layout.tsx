@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { GoArrowUpRight } from "react-icons/go";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -44,7 +45,33 @@ export default function RootLayout({
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
-        <footer
+        <footer className="mb-16 px-4 md:px-8">
+          <div className="mx-auto max-w-4xl">
+            <ul className="font-sm mt-8 flex flex-col space-x-0 space-y-2 text-neutral-600 md:flex-row md:space-x-4 md:space-y-0 dark:text-neutral-300">
+              <li>
+                <a className="inline-flex items-center gap-1" target="_blank" rel="noopener noreferrer" href="https://github.com/waynegraham">
+                  github
+                  <GoArrowUpRight aria-hidden="true" />
+                </a>
+              </li>
+              <li>
+                <a className="inline-flex items-center gap-1" target="_blank" rel="noopener noreferrer" href="https://github.com/waynegraham/belt-progressions/">
+                  view sourcecode
+                  <GoArrowUpRight aria-hidden="true" />
+                </a>
+              </li>
+              <li>
+                <a className="inline-flex items-center gap-1" target="_blank" rel="noopener noreferrer" href="https://github.com/waynegraham/belt-progressions/LICENSE">
+                  mit license
+                  <GoArrowUpRight aria-hidden="true" />
+                </a>
+              </li>
+            </ul>
+
+            <p className="mt-8 text-neutral-600 dark:text-neutral-300">&copy; {new Date().getFullYear()} <a href="https://waynegraham.github.io">Wayne Graham</a></p>
+          </div>
+        </footer>
+        {/* <footer
           className="border-t px-4 py-6 text-center text-sm md:px-8"
           style={{ borderColor: "var(--border-1)", backgroundColor: "var(--surface-1)" }}
         >
@@ -57,7 +84,7 @@ export default function RootLayout({
           >
             View Source
           </a>
-        </footer>
+        </footer> */}
       </body>
     </html>
   );
