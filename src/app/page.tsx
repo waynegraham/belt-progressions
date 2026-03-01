@@ -78,7 +78,7 @@ export default function Home() {
               className="h-full min-h-[260px] w-full rounded-xl bg-cover bg-center md:min-h-[420px]"
               style={{
                 backgroundImage:
-                  "url('https://images.unsplash.com/photo-1517438476312-10d79c077509?auto=format&fit=crop&w=1200&q=80')",
+                  "url('/belt-progressions/belt.png')",
               }}
             />
           </div>
@@ -87,3 +87,4 @@ export default function Home() {
     </main>
   );
 }
+
