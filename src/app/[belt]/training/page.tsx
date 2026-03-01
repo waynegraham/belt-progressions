@@ -1,10 +1,36 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { ReactNode } from "react";
+import ThemeToggleButton from "@/components/ThemeToggleButton";
 import { beltTracks, isBeltSlug } from "@/lib/belt-data";
 
 interface BeltTrainingPageProps {
   params: Promise<{ belt: string }>;
 }
+
+const primaryThemeByTrack = {
+  "white-to-blue": {
+    textClass: "text-blue-700",
+    headingGradientClass: "bg-gradient-to-r from-zinc-100 to-blue-700",
+    activeNavClass: "font-semibold text-blue-700 underline underline-offset-4",
+    buttonClass:
+      "bg-blue-700 hover:bg-blue-600 shadow-[0_8px_22px_rgba(29,78,216,0.35)]",
+  },
+  "blue-to-purple": {
+    textClass: "text-purple-700",
+    headingGradientClass: "bg-gradient-to-r from-blue-400 to-purple-800",
+    activeNavClass: "font-semibold text-purple-700 underline underline-offset-4",
+    buttonClass:
+      "bg-purple-700 hover:bg-purple-600 shadow-[0_8px_22px_rgba(126,34,206,0.35)]",
+  },
+  "purple-to-brown": {
+    textClass: "text-yellow-900",
+    headingGradientClass: "bg-gradient-to-r from-purple-400 to-yellow-900",
+    activeNavClass: "font-semibold text-yellow-900 underline underline-offset-4",
+    buttonClass:
+      "bg-yellow-900 hover:bg-yellow-800 shadow-[0_8px_22px_rgba(146,64,14,0.35)]",
+  },
+} as const;
 
 const whiteToBlueThirtyDayPlan = [
   {
@@ -74,24 +100,40 @@ export default async function BeltTrainingPage({ params }: BeltTrainingPageProps
   }
 
   const track = beltTracks[resolvedParams.belt];
+  const primaryTheme = primaryThemeByTrack[track.slug];
 
   if (track.slug === "white-to-blue") {
     return (
       <main className="min-h-screen bg-[var(--background)] p-4 text-[var(--foreground)] md:p-8">
         <div className="mx-auto max-w-4xl space-y-4 md:space-y-6">
-          <nav className="px-1 text-sm">
-            <div className="flex flex-wrap items-center gap-6" style={{ color: "var(--nav-text)" }}>
-              <Link href="/white-to-blue" className="font-semibold text-[var(--foreground)] underline underline-offset-4">
-                White to Blue
-              </Link>
-              <Link href="/blue-to-purple" className="font-semibold text-[var(--foreground)] hover:underline">
-                Blue to Purple
-              </Link>
-              <Link href="/purple-to-brown" className="font-medium text-[var(--foreground)] hover:underline">
-                Purple to Brown
-              </Link>
+          <header className="space-y-4">
+            <div className="flex items-center justify-between gap-3">
+              <nav className="flex flex-wrap items-center gap-5 text-sm" style={{ color: "var(--nav-text)" }}>
+                <TrackLink
+                  active={track.slug === "white-to-blue"}
+                  href="/white-to-blue"
+                  activeClassName={primaryTheme.activeNavClass}
+                >
+                  White to Blue
+                </TrackLink>
+                <TrackLink
+                  active={track.slug === "blue-to-purple"}
+                  href="/blue-to-purple"
+                  activeClassName={primaryTheme.activeNavClass}
+                >
+                  Blue to Purple
+                </TrackLink>
+                <TrackLink
+                  active={track.slug === "purple-to-brown"}
+                  href="/purple-to-brown"
+                  activeClassName={primaryTheme.activeNavClass}
+                >
+                  Purple to Brown
+                </TrackLink>
+              </nav>
+              <ThemeToggleButton />
             </div>
-          </nav>
+          </header>
 
           <section
             className="rounded-2xl border p-6 md:p-7"
@@ -101,7 +143,14 @@ export default async function BeltTrainingPage({ params }: BeltTrainingPageProps
               boxShadow: "0 12px 30px rgba(37, 99, 235, 0.08)",
             }}
           >
-            <h1 className="text-4xl font-bold leading-tight text-[var(--foreground)] md:text-6xl">Test Preparation Guide</h1>
+            <h1
+              className={`bg-clip-text text-5xl font-extrabold leading-tight text-transparent md:text-7xl ${primaryTheme.headingGradientClass}`}
+            >
+              Test Preparation Guide
+            </h1>
+            <p className={`mt-2 text-xl font-semibold tracking-tighter ${primaryTheme.textClass}`}>
+              {toPreparationTitle(track.label)}
+            </p>
             <p className="mt-3 max-w-3xl text-base leading-8 text-[var(--text-muted)]">
               Congratulations, you got <strong>&ldquo;the email&rdquo;</strong> (or your instructor told you)
               that it is time to prepare for your test. You already know the moves. This guide helps
@@ -110,7 +159,7 @@ export default async function BeltTrainingPage({ params }: BeltTrainingPageProps
             <div className="mt-5">
               <Link
                 href="/white-to-blue"
-                className="inline-flex h-11 items-center justify-center rounded-full bg-blue-700 px-5 text-sm font-semibold text-white shadow-[0_8px_22px_rgba(29,78,216,0.45)] transition-colors hover:bg-blue-600"
+                className={`inline-flex h-11 items-center justify-center rounded-full px-5 text-sm font-semibold text-white transition-colors ${primaryTheme.buttonClass}`}
               >
                 Back to Curriculum
               </Link>
@@ -267,19 +316,34 @@ export default async function BeltTrainingPage({ params }: BeltTrainingPageProps
     return (
       <main className="min-h-screen bg-[var(--background)] p-4 text-[var(--foreground)] md:p-8">
         <div className="mx-auto max-w-4xl space-y-4 md:space-y-6">
-          <nav className="px-1 text-sm">
-            <div className="flex flex-wrap items-center gap-6" style={{ color: "var(--nav-text)" }}>
-              <Link href="/white-to-blue" className="font-medium text-[var(--foreground)] hover:underline">
-                White to Blue
-              </Link>
-              <Link href="/blue-to-purple" className="font-semibold text-[var(--foreground)] underline underline-offset-4">
-                Blue to Purple
-              </Link>
-              <Link href="/purple-to-brown" className="font-medium text-[var(--foreground)] hover:underline">
-                Purple to Brown
-              </Link>
+          <header className="space-y-4">
+            <div className="flex items-center justify-between gap-3">
+              <nav className="flex flex-wrap items-center gap-5 text-sm" style={{ color: "var(--nav-text)" }}>
+                <TrackLink
+                  active={track.slug === "white-to-blue"}
+                  href="/white-to-blue"
+                  activeClassName={primaryTheme.activeNavClass}
+                >
+                  White to Blue
+                </TrackLink>
+                <TrackLink
+                  active={track.slug === "blue-to-purple"}
+                  href="/blue-to-purple"
+                  activeClassName={primaryTheme.activeNavClass}
+                >
+                  Blue to Purple
+                </TrackLink>
+                <TrackLink
+                  active={track.slug === "purple-to-brown"}
+                  href="/purple-to-brown"
+                  activeClassName={primaryTheme.activeNavClass}
+                >
+                  Purple to Brown
+                </TrackLink>
+              </nav>
+              <ThemeToggleButton />
             </div>
-          </nav>
+          </header>
 
           <section
             className="rounded-2xl border p-6 md:p-7"
@@ -289,7 +353,14 @@ export default async function BeltTrainingPage({ params }: BeltTrainingPageProps
               boxShadow: "0 12px 30px rgba(109, 40, 217, 0.12)",
             }}
           >
-            <h1 className="text-4xl font-bold leading-tight text-[var(--foreground)] md:text-6xl">Test Preparation Guide</h1>
+            <h1
+              className={`bg-clip-text text-5xl font-extrabold leading-tight text-transparent md:text-7xl ${primaryTheme.headingGradientClass}`}
+            >
+              Test Preparation Guide
+            </h1>
+            <p className={`mt-2 text-xl font-semibold tracking-tighter ${primaryTheme.textClass}`}>
+              {toPreparationTitle(track.label)}
+            </p>
             <p className="mt-3 max-w-3xl text-base leading-8 text-[var(--text-muted)]">
               Congratulations, you got <strong>&ldquo;the email&rdquo;</strong> (or your instructor told you)
               that it is time to prepare for your test. This guide gives some tips to help you structure
@@ -499,7 +570,7 @@ export default async function BeltTrainingPage({ params }: BeltTrainingPageProps
           <div className="pb-2">
             <Link
               href="/blue-to-purple"
-              className="inline-flex h-11 items-center justify-center rounded-full bg-purple-700 px-5 text-sm font-semibold text-white shadow-[0_8px_22px_rgba(126,34,206,0.45)] transition-colors hover:bg-purple-600"
+              className={`inline-flex h-11 items-center justify-center rounded-full px-5 text-sm font-semibold text-white transition-colors ${primaryTheme.buttonClass}`}
             >
               Back to Curriculum
             </Link>
@@ -512,25 +583,53 @@ export default async function BeltTrainingPage({ params }: BeltTrainingPageProps
   return (
     <main className="min-h-screen bg-[var(--background)] p-4 text-[var(--foreground)] md:p-8">
       <div className="mx-auto max-w-4xl space-y-6">
+        <header className="space-y-4">
+          <div className="flex items-center justify-between gap-3">
+            <nav className="flex flex-wrap items-center gap-5 text-sm" style={{ color: "var(--nav-text)" }}>
+              <TrackLink
+                active={track.slug === "white-to-blue"}
+                href="/white-to-blue"
+                activeClassName={primaryTheme.activeNavClass}
+              >
+                White to Blue
+              </TrackLink>
+              <TrackLink
+                active={track.slug === "blue-to-purple"}
+                href="/blue-to-purple"
+                activeClassName={primaryTheme.activeNavClass}
+              >
+                Blue to Purple
+              </TrackLink>
+              <TrackLink
+                active={track.slug === "purple-to-brown"}
+                href="/purple-to-brown"
+                activeClassName={primaryTheme.activeNavClass}
+              >
+                Purple to Brown
+              </TrackLink>
+            </nav>
+            <ThemeToggleButton />
+          </div>
+        </header>
         <header
           className="rounded-2xl border p-6 shadow-[0_0_60px_var(--glow-a)] backdrop-blur"
           style={{ borderColor: "var(--border-1)", backgroundColor: "var(--surface-1)" }}
         >
           <p className="text-sm font-semibold uppercase tracking-wider text-[var(--muted-subtle)]">Preparation</p>
-          <h1 className="mt-1 text-3xl font-bold text-[var(--foreground)]">
-            {track.label} Training Recommendations
+          <h1
+            className={`mt-1 bg-clip-text text-5xl font-extrabold leading-tight text-transparent md:text-7xl ${primaryTheme.headingGradientClass}`}
+          >
+            Test Preparation Guide
           </h1>
+          <p className={`mt-2 text-xl font-semibold tracking-tighter ${primaryTheme.textClass}`}>
+            {toPreparationTitle(track.label)}
+          </p>
           <p className="mt-2 text-sm text-[var(--text-muted)]">
             Use this page to structure weekly sessions and prepare for evaluation.
           </p>
           <Link
             href={`/${track.slug}`}
-            className="mt-4 inline-flex h-10 items-center justify-center rounded-md border px-4 text-sm font-semibold hover:brightness-110"
-            style={{
-              borderColor: "var(--button-secondary-border)",
-              backgroundColor: "var(--button-secondary-bg)",
-              color: "var(--button-secondary-text)",
-            }}
+            className={`mt-4 inline-flex h-10 items-center justify-center rounded-full px-4 text-sm font-semibold text-white transition-colors ${primaryTheme.buttonClass}`}
           >
             Back to Move List
           </Link>
@@ -560,4 +659,31 @@ export default async function BeltTrainingPage({ params }: BeltTrainingPageProps
       </div>
     </main>
   );
+}
+
+interface TrackLinkProps {
+  active: boolean;
+  href: string;
+  activeClassName: string;
+  children: ReactNode;
+}
+
+function TrackLink({ active, href, activeClassName, children }: TrackLinkProps) {
+  return (
+    <Link
+      href={href}
+      className={active ? activeClassName : "font-semibold hover:underline"}
+      aria-current={active ? "page" : undefined}
+    >
+      {children}
+    </Link>
+  );
+}
+
+function toPreparationTitle(label: string): string {
+  const [from, to] = label.split(" to ").map((part) => part.trim());
+  if (!from || !to) {
+    return `${label} Test Preparation`;
+  }
+  return `${to} Belt Test Preparation`;
 }
