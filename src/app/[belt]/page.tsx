@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import BeltMovesPage from "@/components/BeltMovesPage";
 import { beltSlugs, beltTracks, isBeltSlug } from "@/lib/belt-data";
 
@@ -18,6 +19,9 @@ export default async function BeltPage({ params }: BeltPageProps) {
 
   const track = beltTracks[resolvedParams.belt];
 
-  return <BeltMovesPage track={track} />;
+  return (
+    <Suspense fallback={null}>
+      <BeltMovesPage track={track} />
+    </Suspense>
+  );
 }
-

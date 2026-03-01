@@ -72,9 +72,9 @@ export default function MoveTestMode({ moves, theme, onExit }: MoveTestModeProps
   const showBanner = useCallback((message: string) => {
     setBanner(message);
     if (bannerTimerRef.current) {
-      window.clearTimeout(bannerTimerRef.current);
+      clearTimeout(bannerTimerRef.current);
     }
-    bannerTimerRef.current = window.setTimeout(() => {
+    bannerTimerRef.current = setTimeout(() => {
       setBanner(null);
     }, 2200);
   }, []);
@@ -191,7 +191,7 @@ export default function MoveTestMode({ moves, theme, onExit }: MoveTestModeProps
         setIsListening(false);
         return;
       }
-      restartVoiceTimerRef.current = window.setTimeout(() => {
+      restartVoiceTimerRef.current = setTimeout(() => {
         try {
           recognition.start();
         } catch {
@@ -268,10 +268,10 @@ export default function MoveTestMode({ moves, theme, onExit }: MoveTestModeProps
   useEffect(
     () => () => {
       if (bannerTimerRef.current) {
-        window.clearTimeout(bannerTimerRef.current);
+        clearTimeout(bannerTimerRef.current);
       }
       if (restartVoiceTimerRef.current) {
-        window.clearTimeout(restartVoiceTimerRef.current);
+        clearTimeout(restartVoiceTimerRef.current);
       }
       if (recognitionRef.current) {
         try {
