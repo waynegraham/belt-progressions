@@ -3,6 +3,7 @@
 A Next.js study and test-prep app for PSBJJ belt demonstrations.
 
 The project unifies curriculum review and preparation workflows for:
+
 - White to Blue
 - Blue to Purple
 - Purple to Brown
@@ -65,6 +66,21 @@ npm run dev
 - Update source move lists in `src/lib/white-belt.json` and `src/lib/blue-belt.json`.
 - Belt metadata, themes, and derived move mapping live in `src/lib/belt-data.ts`.
 - Training guide copy lives in `src/app/[belt]/training/page.tsx`.
+
+### Editing the Test Preparation Guide
+
+The Test Preparation guide content is defined in `src/app/[belt]/training/page.tsx`.
+
+- White to Blue guide: edit the `if (track.slug === "white-to-blue")` block.
+- Blue to Purple guide: edit the `if (track.slug === "blue-to-purple")` block.
+- 30-day plans: update `whiteToBlueThirtyDayPlan` and `blueToPurpleThirtyDayPlan` at the top of the file.
+- Purple to Brown (and any non-custom track): update `trainingRecommendations` in `src/lib/belt-data.ts`.
+
+After making content changes, run the app and verify:
+
+1. Open `http://localhost:3000/<belt>/training` for each affected belt.
+2. Confirm section links (for example, `#overview`, `#plan-30-day`) still match their headings.
+3. Check spacing and colors in both light and dark mode.
 
 ## Notes
 

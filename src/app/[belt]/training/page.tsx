@@ -1,13 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { beltSlugs, beltTracks, isBeltSlug } from "@/lib/belt-data";
+import { beltTracks, isBeltSlug } from "@/lib/belt-data";
 
 interface BeltTrainingPageProps {
   params: Promise<{ belt: string }>;
-}
-
-export function generateStaticParams() {
-  return beltSlugs.map((belt) => ({ belt }));
 }
 
 const whiteToBlueThirtyDayPlan = [
@@ -565,4 +561,3 @@ export default async function BeltTrainingPage({ params }: BeltTrainingPageProps
     </main>
   );
 }
-
