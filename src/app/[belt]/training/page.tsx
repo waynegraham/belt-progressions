@@ -361,11 +361,20 @@ export default async function BeltTrainingPage({ params }: BeltTrainingPageProps
             <p className={`mt-2 text-xl font-semibold tracking-tighter ${primaryTheme.textClass}`}>
               {toPreparationTitle(track.label)}
             </p>
-            <p className="mt-3 max-w-3xl text-base leading-8 text-[var(--text-muted)]">
+            <p className="mt-3 pb-4 max-w-3xl text-base leading-8 text-[var(--text-muted)]">
               Congratulations, you got <strong>&ldquo;the email&rdquo;</strong> (or your instructor told you)
               that it is time to prepare for your test. This guide gives some tips to help you structure
               practice sessions to ease your nerves for test day.
             </p>
+
+            <div className="pb-2">
+            <Link
+              href="/blue-to-purple"
+              className={`inline-flex h-11 items-center justify-center rounded-full px-5 text-sm font-semibold text-white transition-colors ${primaryTheme.buttonClass}`}
+            >
+              Back to Curriculum
+            </Link>
+          </div>
           </section>
 
           <section

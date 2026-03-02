@@ -41,11 +41,13 @@ The project unifies curriculum review and preparation workflows for:
 ## Local Development
 
 1. Install dependencies:
+
 ```bash
 npm install
 ```
 
 2. Start the dev server:
+
 ```bash
 npm run dev
 ```
