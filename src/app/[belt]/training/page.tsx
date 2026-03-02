@@ -110,21 +110,21 @@ export default async function BeltTrainingPage({ params }: BeltTrainingPageProps
             <div className="flex items-center justify-between gap-3">
               <nav className="flex flex-wrap items-center gap-5 text-sm" style={{ color: "var(--nav-text)" }}>
                 <TrackLink
-                  active={track.slug === "white-to-blue"}
+                  active={true}
                   href="/white-to-blue"
                   activeClassName={primaryTheme.activeNavClass}
                 >
                   White to Blue
                 </TrackLink>
                 <TrackLink
-                  active={track.slug === "blue-to-purple"}
+                  active={false}
                   href="/blue-to-purple"
                   activeClassName={primaryTheme.activeNavClass}
                 >
                   Blue to Purple
                 </TrackLink>
                 <TrackLink
-                  active={track.slug === "purple-to-brown"}
+                  active={false}
                   href="/purple-to-brown"
                   activeClassName={primaryTheme.activeNavClass}
                 >
@@ -320,21 +320,21 @@ export default async function BeltTrainingPage({ params }: BeltTrainingPageProps
             <div className="flex items-center justify-between gap-3">
               <nav className="flex flex-wrap items-center gap-5 text-sm" style={{ color: "var(--nav-text)" }}>
                 <TrackLink
-                  active={track.slug === "white-to-blue"}
+                  active={false}
                   href="/white-to-blue"
                   activeClassName={primaryTheme.activeNavClass}
                 >
                   White to Blue
                 </TrackLink>
                 <TrackLink
-                  active={track.slug === "blue-to-purple"}
+                  active={true}
                   href="/blue-to-purple"
                   activeClassName={primaryTheme.activeNavClass}
                 >
                   Blue to Purple
                 </TrackLink>
                 <TrackLink
-                  active={track.slug === "purple-to-brown"}
+                  active={false}
                   href="/purple-to-brown"
                   activeClassName={primaryTheme.activeNavClass}
                 >
@@ -587,21 +587,21 @@ export default async function BeltTrainingPage({ params }: BeltTrainingPageProps
           <div className="flex items-center justify-between gap-3">
             <nav className="flex flex-wrap items-center gap-5 text-sm" style={{ color: "var(--nav-text)" }}>
               <TrackLink
-                active={track.slug === "white-to-blue"}
+                active={false}
                 href="/white-to-blue"
                 activeClassName={primaryTheme.activeNavClass}
               >
                 White to Blue
               </TrackLink>
               <TrackLink
-                active={track.slug === "blue-to-purple"}
+                active={false}
                 href="/blue-to-purple"
                 activeClassName={primaryTheme.activeNavClass}
               >
                 Blue to Purple
               </TrackLink>
               <TrackLink
-                active={track.slug === "purple-to-brown"}
+                active={true}
                 href="/purple-to-brown"
                 activeClassName={primaryTheme.activeNavClass}
               >
