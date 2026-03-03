@@ -58,7 +58,7 @@ jobs:
       - name: Lint
         run: ${{ steps.detect-package-manager.outputs.manager }} run lint
       - name: Unit Tests
-        run: ${{ steps.detect-package-manager.outputs.manager }} test -- --runInBand
+        run: ${{ steps.detect-package-manager.outputs.manager }} run test --runInBand
       - name: E2E Smoke Tests
         run: ${{ steps.detect-package-manager.outputs.manager }} run test:e2e
 
