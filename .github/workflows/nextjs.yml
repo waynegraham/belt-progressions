@@ -25,9 +25,47 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Detect package manager
+        id: detect-package-manager
+        run: |
+          if [ -f "${{ github.workspace }}/pnpm-lock.yaml" ]; then
+            echo "manager=pnpm" >> $GITHUB_OUTPUT
+            echo "command=install --frozen-lockfile" >> $GITHUB_OUTPUT
+            echo "runner=pnpm exec" >> $GITHUB_OUTPUT
+            exit 0
+          else
+            echo "Unable to determine package manager. Ensure pnpm-lock.yaml is present."
+            exit 1
+          fi
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "25"
+          cache: ${{ steps.detect-package-manager.outputs.manager }}
+      - name: Install dependencies
+        run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+      - name: Install Playwright Browsers
+        run: ${{ steps.detect-package-manager.outputs.runner }} playwright install --with-deps chromium
+      - name: Lint
+        run: ${{ steps.detect-package-manager.outputs.manager }} run lint
+      - name: Unit Tests
+        run: ${{ steps.detect-package-manager.outputs.manager }} test -- --runInBand
+      - name: E2E Smoke Tests
+        run: ${{ steps.detect-package-manager.outputs.manager }} run test:e2e
+
   # Build job
   build:
     runs-on: ubuntu-latest
+    needs: test
     steps:
       - name: Checkout
         uses: actions/checkout@v4
