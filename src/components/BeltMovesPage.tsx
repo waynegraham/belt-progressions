@@ -4,39 +4,13 @@ import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import MoveTestMode from "@/components/MoveTestMode";
-import ThemeToggleButton from "@/components/ThemeToggleButton";
+import TrackNav from "@/components/TrackNav";
 import type { BeltTrack } from "@/lib/belt-data";
+import { primaryThemeByTrack } from "@/lib/track-ui";
 
 interface BeltMovesPageProps {
   track: BeltTrack;
 }
-
-const primaryThemeByTrack = {
-  "white-to-blue": {
-    textClass: "text-blue-700",
-    headingGradientClass: "bg-gradient-to-r from-zinc-100 to-blue-700",
-    linkClass: "text-blue-700 hover:underline",
-    activeNavClass: "font-semibold text-blue-700 underline underline-offset-4",
-    buttonClass:
-      "bg-blue-700 hover:bg-blue-600 shadow-[0_8px_22px_rgba(29,78,216,0.35)]",
-  },
-  "blue-to-purple": {
-    textClass: "text-purple-700",
-    headingGradientClass: "bg-gradient-to-r from-blue-400 to-purple-800",
-    linkClass: "text-purple-700 hover:underline",
-    activeNavClass: "font-semibold text-purple-700 underline underline-offset-4",
-    buttonClass:
-      "bg-purple-700 hover:bg-purple-600 shadow-[0_8px_22px_rgba(126,34,206,0.35)]",
-  },
-  "purple-to-brown": {
-    textClass: "text-yellow-900",
-    headingGradientClass: "bg-gradient-to-r from-purple-400 to-yellow-900",
-    linkClass: "text-yellow-900 hover:underline",
-    activeNavClass: "font-semibold text-yellow-900 underline underline-offset-4",
-    buttonClass:
-      "bg-yellow-900 hover:bg-yellow-800 shadow-[0_8px_22px_rgba(146,64,14,0.35)]",
-  },
-} as const;
 
 export default function BeltMovesPage({ track }: BeltMovesPageProps) {
   const [query, setQuery] = useState("");
@@ -229,32 +203,7 @@ export default function BeltMovesPage({ track }: BeltMovesPageProps) {
       <main ref={mainRef} className="min-h-screen bg-[var(--background)] p-4 text-[var(--foreground)] md:p-8">
         <div className="mx-auto max-w-4xl space-y-5">
           <header className="space-y-4">
-            <div className="flex items-center justify-between gap-3">
-              <nav className="flex flex-wrap items-center gap-5 text-sm" style={{ color: "var(--nav-text)" }}>
-                <TrackLink
-                  active={track.slug === "white-to-blue"}
-                  href="/white-to-blue"
-                  activeClassName={primaryTheme.activeNavClass}
-                >
-                  White to Blue
-                </TrackLink>
-                <TrackLink
-                  active={track.slug === "blue-to-purple"}
-                  href="/blue-to-purple"
-                  activeClassName={primaryTheme.activeNavClass}
-                >
-                  Blue to Purple
-                </TrackLink>
-                <TrackLink
-                  active={track.slug === "purple-to-brown"}
-                  href="/purple-to-brown"
-                  activeClassName={primaryTheme.activeNavClass}
-                >
-                  Purple to Brown
-                </TrackLink>
-              </nav>
-              <ThemeToggleButton />
-            </div>
+            <TrackNav activeSlug={track.slug} activeClassName={primaryTheme.activeNavClass} />
 
             <h1
               className={`bg-clip-text text-7xl font-extrabold leading-tight text-transparent md:text-7xl print:bg-none print:text-black ${primaryTheme.headingGradientClass}`}
@@ -394,25 +343,6 @@ export default function BeltMovesPage({ track }: BeltMovesPageProps) {
         </div>
       ) : null}
     </>
-  );
-}
-
-interface TrackLinkProps {
-  active: boolean;
-  href: string;
-  activeClassName: string;
-  children: React.ReactNode;
-}
-
-function TrackLink({ active, href, activeClassName, children }: TrackLinkProps) {
-  return (
-    <Link
-      href={href}
-      className={active ? activeClassName : "font-semibold hover:underline"}
-      aria-current={active ? "page" : undefined}
-    >
-      {children}
-    </Link>
   );
 }
 

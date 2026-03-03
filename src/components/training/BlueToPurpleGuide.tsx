@@ -1,0 +1,289 @@
+import Link from "next/link";
+import TrackNav from "@/components/TrackNav";
+import type { TrackPrimaryTheme } from "@/lib/track-ui";
+
+interface BlueToPurpleGuideProps {
+  title: string;
+  primaryTheme: TrackPrimaryTheme;
+}
+
+const blueToPurpleThirtyDayPlan = [
+  {
+    week: "Week 1 - Organize",
+    items: ["Drill technique clusters in order.", "Write out positional blueprints."],
+  },
+  {
+    week: "Week 2 - System Build",
+    items: [
+      "Positional sparring from required test positions.",
+      "Light-resistance chaining.",
+      "Half mock technique run.",
+    ],
+  },
+  {
+    week: "Week 3 - Integration",
+    items: ["Full mock technique test.", "Two full show your game simulations.", "Before- and after-class rolls."],
+  },
+  {
+    week: "Week 4 - Pressure",
+    items: ["Two full mock tests.", "Three full positional chain simulations.", "Before- and after-class rolls."],
+  },
+];
+
+export default function BlueToPurpleGuide({ title, primaryTheme }: BlueToPurpleGuideProps) {
+  return (
+    <main className="min-h-screen bg-[var(--background)] p-4 text-[var(--foreground)] md:p-8">
+      <div className="mx-auto max-w-4xl space-y-4 md:space-y-6">
+        <header className="space-y-4">
+          <TrackNav activeSlug="blue-to-purple" activeClassName={primaryTheme.activeNavClass} />
+        </header>
+
+        <section
+          className="rounded-2xl border p-6 md:p-7"
+          style={{
+            borderColor: "var(--border-1)",
+            backgroundColor: "var(--surface-1)",
+            boxShadow: "0 12px 30px rgba(109, 40, 217, 0.12)",
+          }}
+        >
+          <h1
+            className={`bg-clip-text text-5xl font-extrabold leading-tight text-transparent md:text-7xl ${primaryTheme.headingGradientClass}`}
+          >
+            Test Preparation Guide
+          </h1>
+          <p className={`mt-2 text-xl font-semibold tracking-tighter ${primaryTheme.textClass}`}>{title}</p>
+          <p className="mt-3 max-w-3xl pb-4 text-base leading-8 text-[var(--text-muted)]">
+            Congratulations, you got <strong>&ldquo;the email&rdquo;</strong> (or your instructor told you)
+            that it is time to prepare for your test. This guide gives some tips to help you structure
+            practice sessions to ease your nerves for test day.
+          </p>
+
+          <div className="pb-2">
+            <Link
+              href="/blue-to-purple"
+              className={`inline-flex h-11 items-center justify-center rounded-full px-5 text-sm font-semibold text-white transition-colors ${primaryTheme.buttonClass}`}
+            >
+              Back to Curriculum
+            </Link>
+          </div>
+        </section>
+
+        <section
+          className="rounded-xl border p-4"
+          style={{ borderColor: "var(--border-1)", backgroundColor: "var(--surface-1)" }}
+        >
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--muted-subtle)]">
+            On This Page
+          </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <a
+              className="inline-flex h-8 items-center rounded-full border px-3 text-sm hover:brightness-110"
+              style={{ borderColor: "var(--border-1)" }}
+              href="#overview"
+            >
+              Overview
+            </a>
+            <a
+              className="inline-flex h-8 items-center rounded-full border px-3 text-sm hover:brightness-110"
+              style={{ borderColor: "var(--border-1)" }}
+              href="#technique"
+            >
+              Technique
+            </a>
+            <a
+              className="inline-flex h-8 items-center rounded-full border px-3 text-sm hover:brightness-110"
+              style={{ borderColor: "var(--border-1)" }}
+              href="#show-your-game"
+            >
+              Show Your Game
+            </a>
+            <a
+              className="inline-flex h-8 items-center rounded-full border px-3 text-sm hover:brightness-110"
+              style={{ borderColor: "var(--border-1)" }}
+              href="#plan-30-day"
+            >
+              30-Day Plan
+            </a>
+            <a
+              className="inline-flex h-8 items-center rounded-full border px-3 text-sm hover:brightness-110"
+              style={{ borderColor: "var(--border-1)" }}
+              href="#shark-tank"
+            >
+              Shark Tank
+            </a>
+          </div>
+        </section>
+
+        <article
+          id="overview"
+          className="scroll-mt-24 rounded-2xl border p-6 md:p-7"
+          style={{ borderColor: "var(--border-1)", backgroundColor: "var(--surface-1)" }}
+        >
+          <h2 className="text-4xl font-bold text-[var(--foreground)] md:text-5xl">Overview</h2>
+          <p className="mt-4 text-base leading-8 text-[var(--text-muted)]">
+            The test is structured much like the White-to-Blue test: you will demonstrate proficiency in
+            the same techniques, plus a few more advanced ones. In addition to the techniques, you will
+            also be asked to <strong>show your game</strong>.
+          </p>
+          <p className="mt-4 text-base leading-8 text-[var(--text-muted)]">
+            At this point in your journey, the &ldquo;test&rdquo; is not about adding a few more moves.
+            It is about showing how well you connect and apply them.
+          </p>
+          <p className="mt-4 text-base leading-8 text-[var(--text-muted)]">This test asks:</p>
+          <ul className="mt-3 list-disc space-y-2 pl-5 text-base text-[var(--text-muted)] marker:text-purple-600">
+            <li>Do you have a system?</li>
+            <li>Can you transition with intention?</li>
+            <li>Do you react appropriately?</li>
+          </ul>
+        </article>
+
+        <article
+          id="technique"
+          className="scroll-mt-24 rounded-2xl border p-6 md:p-7"
+          style={{ borderColor: "var(--border-1)", backgroundColor: "var(--surface-1)" }}
+        >
+          <h2 className="text-4xl font-bold text-[var(--foreground)] md:text-5xl">Technique Portion</h2>
+          <p className="mt-4 text-base leading-8 text-[var(--text-muted)]">
+            The structure is similar to White-to-Blue, but expectations shift. At blue belt, you need to
+            do the move at purple belt. You need to own the move. Be intentional, smooth, and detail-oriented.
+          </p>
+          <p className="mt-4 text-base leading-8 text-[var(--text-muted)]">
+            You will likely demonstrate all White-to-Blue techniques first, then move to the purple-belt additions.
+          </p>
+        </article>
+
+        <article
+          id="show-your-game"
+          className="scroll-mt-24 rounded-2xl border p-6 md:p-7"
+          style={{ borderColor: "var(--border-1)", backgroundColor: "var(--surface-1)" }}
+        >
+          <h2 className="text-4xl font-bold text-[var(--foreground)] md:text-5xl">Show Your Game</h2>
+          <p className="mt-4 text-base leading-8 text-[var(--text-muted)]">
+            This will happen after the technique section and is meant to show that you understand positional
+            advancement, attacking sequences, and appropriate reactions to your opponent&rsquo;s movement.
+            Demonstrate a clear game plan and execute it under pressure.
+          </p>
+          <p className="mt-4 text-base leading-8 text-[var(--text-muted)]">
+            You will be asked to show your game from specific positions and present your attack chains from each.
+            Build a blueprint for Guard, Half Guard, Side Control, Mount, and Back Control as well as standing.
+            Work with your uke so they can feed realistic reactions that let you demonstrate your system.
+          </p>
+
+          <p className="mt-4 text-base leading-8 text-[var(--text-muted)]">For every position, define:</p>
+          <ul className="mt-3 list-disc space-y-2 pl-5 text-base text-[var(--text-muted)] marker:text-purple-600">
+            <li>Primary attack</li>
+            <li>Secondary attack</li>
+            <li>Reaction if defended</li>
+            <li>Transition to the next dominant position</li>
+          </ul>
+
+          <div
+            className="mt-5 rounded-lg border-l-4 bg-[var(--panel-soft)] p-4 text-base text-[var(--text-muted)]"
+            style={{ borderLeftColor: "#7c3aed" }}
+          >
+            This creates decision trees. <strong>You are not improvising.</strong> You are executing a system.
+          </div>
+
+          <h3 className="mt-6 text-2xl font-semibold text-[var(--foreground)]">Example Structure</h3>
+          <div className="mt-4 grid gap-4 md:grid-cols-2">
+            <section
+              className="rounded-xl border p-4"
+              style={{ borderColor: "var(--border-1)", backgroundColor: "var(--panel-soft)" }}
+            >
+              <h4 className="text-lg font-semibold text-[var(--foreground)]">Closed Guard</h4>
+              <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-[var(--text-muted)] marker:text-purple-600">
+                <li>Primary choke (for example, cross collar).</li>
+                <li>Sweep if posture breaks (for example, scissor or flower).</li>
+                <li>Back take if they defend.</li>
+                <li>Open guard transition if stacked.</li>
+              </ol>
+            </section>
+            <section
+              className="rounded-xl border p-4"
+              style={{ borderColor: "var(--border-1)", backgroundColor: "var(--panel-soft)" }}
+            >
+              <h4 className="text-lg font-semibold text-[var(--foreground)]">Cross Body</h4>
+              <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-[var(--text-muted)] marker:text-purple-600">
+                <li>Primary attack (for example, kimura).</li>
+                <li>Secondary option if they hide the arm (for example, americana).</li>
+                <li>Switch to the opposite side as needed.</li>
+                <li>Transition to mount.</li>
+              </ol>
+            </section>
+          </div>
+
+          <h3 className="mt-6 text-2xl font-semibold text-[var(--foreground)]">How to Train Show Your Game</h3>
+          <p className="mt-3 text-base leading-8 text-[var(--text-muted)]">Twice per week (open mat helps):</p>
+          <ul className="mt-2 list-disc space-y-2 pl-5 text-base text-[var(--text-muted)] marker:text-purple-600">
+            <li>Start in one required position.</li>
+            <li>Roll only from that position.</li>
+            <li>Exhaust your options.</li>
+            <li>Reset and move to the next required position.</li>
+            <li>Make notes on what is working for you.</li>
+          </ul>
+          <p className="mt-3 text-base leading-8 text-[var(--text-muted)]">
+            By week 3, run the full positional sequence in order.
+          </p>
+        </article>
+
+        <article
+          id="plan-30-day"
+          className="scroll-mt-24 rounded-2xl border p-6 md:p-7"
+          style={{ borderColor: "var(--border-1)", backgroundColor: "var(--surface-1)" }}
+        >
+          <h2 className="text-4xl font-bold text-[var(--foreground)] md:text-5xl">30-Day Plan</h2>
+          <div className="mt-5 grid gap-4 md:grid-cols-2">
+            {blueToPurpleThirtyDayPlan.map((phase) => (
+              <div
+                key={phase.week}
+                className="rounded-xl border p-4"
+                style={{ borderColor: "var(--border-1)", backgroundColor: "var(--panel-soft)" }}
+              >
+                <h3 className="text-xl font-semibold text-[var(--foreground)]">{phase.week}</h3>
+                <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-[var(--text-muted)] marker:text-purple-600">
+                  {phase.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </article>
+
+        <article
+          id="shark-tank"
+          className="scroll-mt-24 rounded-2xl border p-6 md:p-7"
+          style={{ borderColor: "var(--border-1)", backgroundColor: "var(--surface-1)" }}
+        >
+          <h2 className="text-4xl font-bold text-[var(--foreground)] md:text-5xl">Shark Tank Strategy</h2>
+          <p className="mt-4 text-base leading-8 text-[var(--text-muted)]">
+            You are not being evaluated here. This is to prove you can handle pressure and keep composure.
+            It is not about winning.
+          </p>
+          <ul className="mt-3 list-disc space-y-2 pl-5 text-base text-[var(--text-muted)] marker:text-purple-600">
+            <li>No frantic scrambles.</li>
+            <li>Defense first.</li>
+            <li>Heavy top pressure when available.</li>
+            <li>Intelligent guard recovery.</li>
+            <li>Structure over strength.</li>
+          </ul>
+          <div
+            className="mt-4 rounded-lg border-l-4 bg-[var(--panel-soft)] p-4 text-base text-[var(--text-muted)]"
+            style={{ borderLeftColor: "#7c3aed" }}
+          >
+            <strong>Control your breathing.</strong>
+          </div>
+        </article>
+
+        <div className="pb-2">
+          <Link
+            href="/blue-to-purple"
+            className={`inline-flex h-11 items-center justify-center rounded-full px-5 text-sm font-semibold text-white transition-colors ${primaryTheme.buttonClass}`}
+          >
+            Back to Curriculum
+          </Link>
+        </div>
+      </div>
+    </main>
+  );
+}

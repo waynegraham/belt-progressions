@@ -46,6 +46,14 @@ const voiceCommands = {
 };
 
 export default function MoveTestMode({ moves, theme, onExit }: MoveTestModeProps) {
+  const voiceSupported =
+    typeof window !== "undefined" &&
+    Boolean(
+      (window as Window & { SpeechRecognition?: SpeechRecognitionCtor; webkitSpeechRecognition?: SpeechRecognitionCtor })
+        .SpeechRecognition ||
+        (window as Window & { SpeechRecognition?: SpeechRecognitionCtor; webkitSpeechRecognition?: SpeechRecognitionCtor })
+          .webkitSpeechRecognition,
+    );
   const sortedMoves = useMemo(() => [...moves].sort((a, b) => a.order - b.order), [moves]);
   const jumpIndex = useMemo(
     () => sortedMoves.findIndex((move) => move.tags.some((tag) => tag.toLowerCase() === "standing defenses from the front")),
@@ -408,7 +416,9 @@ export default function MoveTestMode({ moves, theme, onExit }: MoveTestModeProps
 
           <div className="max-w-3xl">
             <p className={`text-sm uppercase tracking-[0.3em] ${palette.badge}`}>Completion</p>
-            <h1 className="mt-6 text-4xl font-bold md:text-6xl">Congratulations, you're now a purple belt.</h1>
+            <h1 className="mt-6 text-4xl font-bold md:text-6xl">
+              Congratulations, you&apos;re now a purple belt.
+            </h1>
             <p className={`mt-6 text-lg md:text-2xl ${palette.completionSubheading}`}>
               Swipe down or left to review the last move, up or right to restart the sequence.
             </p>
@@ -481,7 +491,9 @@ export default function MoveTestMode({ moves, theme, onExit }: MoveTestModeProps
                 ) : null}
                 <div className="text-sm text-slate-300">Swipe up or right for next, down or left for previous.</div>
                 <div className="text-sm text-slate-300">
-                  {recognitionRef.current ? "Tap Start Voice to enable voice commands." : "Voice control not supported on this browser."}
+                  {voiceSupported
+                    ? "Tap Start Voice to enable voice commands."
+                    : "Voice control not supported on this browser."}
                 </div>
               </div>
             </div>
