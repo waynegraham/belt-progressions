@@ -35,9 +35,12 @@ export default function RootLayout({
   try {
     const saved = localStorage.getItem("theme");
     const system = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-    document.documentElement.dataset.theme = saved === "dark" || saved === "light" ? saved : system;
+    const theme = saved === "dark" || saved === "light" ? saved : system;
+    document.documentElement.dataset.theme = theme;
+    document.documentElement.classList.toggle("dark", theme === "dark");
   } catch {
     document.documentElement.dataset.theme = "light";
+    document.documentElement.classList.remove("dark");
   }
 })();`,
           }}

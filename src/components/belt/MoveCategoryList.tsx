@@ -18,7 +18,7 @@ export default function MoveCategoryList({
     <section className="space-y-5">
       {categories.map((category) => (
         <section key={category.id} id={category.id} className="scroll-mt-24">
-          <h3 className="my-3 text-xl text-gray-900 print:my-0 dark:text-gray-300">{category.label}</h3>
+          <h3 className="my-3 text-xl text-[var(--foreground)] print:my-0">{category.label}</h3>
           <ul className="mt-2 list-disc space-y-1 pl-5 text-base marker:text-[var(--foreground)]">
             {category.moves.map((move) => (
               <li key={move.id}>
