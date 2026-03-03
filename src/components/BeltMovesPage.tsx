@@ -1,10 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import { useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import BeltMovesHeader from "@/components/belt/BeltMovesHeader";
+import MoveCategoryList from "@/components/belt/MoveCategoryList";
+import VideoModal from "@/components/belt/VideoModal";
 import MoveTestMode from "@/components/MoveTestMode";
-import TrackNav from "@/components/TrackNav";
 import { useVideoModal } from "@/hooks/useVideoModal";
 import type { BeltTrack } from "@/lib/belt-data";
 import { primaryThemeByTrack } from "@/lib/track-ui";
@@ -82,55 +83,14 @@ export default function BeltMovesPage({ track }: BeltMovesPageProps) {
     <>
       <main ref={mainRef} className="min-h-screen bg-[var(--background)] p-4 text-[var(--foreground)] md:p-8">
         <div className="mx-auto max-w-4xl space-y-5">
-          <header className="space-y-4">
-            <TrackNav activeSlug={track.slug} activeClassName={primaryTheme.activeNavClass} />
-
-            <h1
-              className={`bg-clip-text text-7xl font-extrabold leading-tight text-transparent md:text-7xl print:bg-none print:text-black ${primaryTheme.headingGradientClass}`}
-            >
-              {track.label} 
-            </h1>
-
-            {/* <h2 className="text-sm font-semibold uppercase tracking-wide text-[var(--muted-subtle)]">Curriculum Techniques</h2> */}
-            <p className={`inline-block mb-8 text-2xl font-semibold tracking-tighter ${primaryTheme.textClass}`}>
-              {toRequirementTitle(track.label)}
-            </p>
-
-            <div className="flex flex-wrap items-center gap-3">
-              <button
-                type="button"
-                onClick={() => setTestMode((value) => !value)}
-                className={`inline-flex h-11 items-center justify-center rounded-full px-5 text-sm font-semibold text-white transition-colors ${primaryTheme.buttonClass}`}
-              >
-                {testMode ? "Exit Test Mode" : "Test Mode"}
-              </button>
-              <Link
-                href={`/${track.slug}/training`}
-                className="inline-flex h-11 items-center justify-center rounded-full border px-5 text-sm font-medium hover:bg-slate-50"
-                style={{ borderColor: "var(--border-1)", backgroundColor: "var(--surface-1)" }}
-              >
-                Test Preparation Guide
-              </Link>
-            </div>
-            <p>
-              <a target="_blank" rel="nofollow" href="https://waynegraham.github.io/bjj-study-guide/gracie-jiu-jitsu_compress.pdf" className={`text-sm underline underline-offset-2 ${primaryTheme.textClass}`}>Reference</a>
-            </p>
-            <label className="block">
-              <span className="sr-only">Search techniques</span>
-              <input
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                placeholder="Search"
-                aria-label="Search techniques"
-                className="w-full rounded-md border px-3 py-2 text-sm outline-none ring-sky-400 focus:ring"
-                style={{
-                  borderColor: "var(--input-border)",
-                  backgroundColor: "var(--input-bg)",
-                  color: "var(--input-text)",
-                }}
-              />
-            </label>
-          </header>
+          <BeltMovesHeader
+            track={track}
+            primaryTheme={primaryTheme}
+            query={query}
+            onQueryChange={setQuery}
+            testMode={testMode}
+            onToggleTestMode={() => setTestMode((value) => !value)}
+          />
 
           {testMode ? (
             <MoveTestMode
@@ -152,92 +112,25 @@ export default function BeltMovesPage({ track }: BeltMovesPageProps) {
               No moves match that search.
             </section>
           ) : (
-            <section className="space-y-5">
-              {filteredCategories.map((category) => (
-                <section key={category.id} id={category.id} className="scroll-mt-24">
-                  <h3 className="my-3 text-xl print:my-0 text-gray-900 dark:text-gray-300">
-                    {category.label}
-                  </h3>
-                  <ul className="mt-2 list-disc space-y-1 pl-5 text-base marker:text-[var(--foreground)]">
-                    {category.moves.map((move) => (
-                      <li key={move.id}>
-                        <a
-                          href={`${currentPathname}?video=${move.id}`}
-                          onClick={(event) => {
-                            event.preventDefault();
-                            openVideoModal(move.id);
-                          }}
-                          className={`font-medium ${primaryTheme.linkClass}`}
-                        >
-                          {move.name}
-                        </a>
-                        {" - "}
-                        <span style={{ color: "var(--text-muted)" }}>{move.summary}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-              ))}
-            </section>
+            <MoveCategoryList
+              categories={filteredCategories}
+              currentPathname={currentPathname}
+              linkClassName={primaryTheme.linkClass}
+              onOpenVideo={openVideoModal}
+            />
           )}
         </div>
       </main>
 
-      {activeMove ? (
-        <div className="fixed inset-0 z-50 bg-black/70 p-0 md:p-6" onClick={closeVideoModal}>
-          <div
-            ref={dialogRef}
-            role="dialog"
-            aria-modal="true"
-            aria-label={`${activeMove.name} video`}
-            onClick={(event) => event.stopPropagation()}
-            className="mx-auto flex h-full w-full flex-col bg-black md:h-auto md:max-w-5xl md:rounded-xl"
-          >
-            <div className="flex items-center justify-between px-4 py-3 text-white">
-              <p className="truncate pr-4 text-sm font-semibold md:text-base">{activeMove.name}</p>
-              <button
-                ref={closeButtonRef}
-                type="button"
-                onClick={closeVideoModal}
-                className="rounded border border-white/40 px-3 py-1 text-sm hover:bg-white/10"
-              >
-                Close
-              </button>
-            </div>
-            <div className="flex-1">
-              {activeEmbedUrl ? (
-                <iframe
-                  src={activeEmbedUrl}
-                  title={activeMove.name}
-                  className="h-full w-full md:aspect-video md:h-auto"
-                  allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerPolicy="strict-origin-when-cross-origin"
-                  allowFullScreen
-                />
-              ) : (
-                <div className="flex h-full items-center justify-center p-6 text-center text-sm text-white md:min-h-[360px]">
-                  <div>
-                    <p>Unable to embed this video.</p>
-                    <a href={activeMove.youtubeUrl} target="_blank" rel="noreferrer" className="underline">
-                      Open on YouTube
-                    </a>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      ) : null}
+      <VideoModal
+        activeMove={activeMove}
+        activeEmbedUrl={activeEmbedUrl}
+        onClose={closeVideoModal}
+        dialogRef={dialogRef}
+        closeButtonRef={closeButtonRef}
+      />
     </>
   );
-}
-
-function toRequirementTitle(label: string): string {
-  const [from, to] = label.split(" to ").map((part) => part.trim());
-  if (!from || !to) {
-    return `${label} Test Requirements`;
-  }
-  return `${to} Belt Test Requirements`;
 }
 
 function moveMatchesQuery(name: string, summary: string, tags: string[], query: string): boolean {
