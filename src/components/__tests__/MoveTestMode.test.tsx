@@ -66,4 +66,52 @@ describe("MoveTestMode", () => {
 
     expect(screen.getByText("No moves available.")).toBeInTheDocument();
   });
+
+  it("uses configurable completion rank label", () => {
+    render(
+      <MoveTestMode
+        moves={moves}
+        theme={theme}
+        onExit={jest.fn()}
+        completionRankLabel="brown"
+      />,
+    );
+
+    fireEvent.keyDown(window, { key: "ArrowRight" });
+    fireEvent.keyDown(window, { key: "ArrowRight" });
+
+    expect(screen.getByText("Congratulations, you're now a brown belt.")).toBeInTheDocument();
+  });
+
+  it("uses configurable jump label when jump target exists", () => {
+    const jumpMoves: BeltMove[] = [
+      {
+        id: "first",
+        name: "First Move",
+        summary: "First summary",
+        order: 1,
+        tags: ["pass"],
+        youtubeUrl: "https://www.youtube.com/watch?v=first",
+      },
+      {
+        id: "jump",
+        name: "Standing Defenses",
+        summary: "Jump point",
+        order: 2,
+        tags: ["standing defenses from the front"],
+        youtubeUrl: "https://www.youtube.com/watch?v=jump",
+      },
+    ];
+
+    render(
+      <MoveTestMode
+        moves={jumpMoves}
+        theme={theme}
+        onExit={jest.fn()}
+        jumpLabel="Jump to Brown"
+      />,
+    );
+
+    expect(screen.getByRole("button", { name: "Jump to Brown" })).toBeInTheDocument();
+  });
 });

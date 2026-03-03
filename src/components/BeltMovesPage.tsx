@@ -12,6 +12,15 @@ interface BeltMovesPageProps {
   track: BeltTrack;
 }
 
+const testModeCopyByTrack: Record<
+  BeltTrack["slug"],
+  { completionRankLabel: string; jumpLabel: string }
+> = {
+  "white-to-blue": { completionRankLabel: "blue", jumpLabel: "Jump to Purple" },
+  "blue-to-purple": { completionRankLabel: "purple", jumpLabel: "Jump to Brown" },
+  "purple-to-brown": { completionRankLabel: "brown", jumpLabel: "Jump Ahead" },
+};
+
 export default function BeltMovesPage({ track }: BeltMovesPageProps) {
   const [query, setQuery] = useState("");
   const [testMode, setTestMode] = useState(false);
@@ -22,6 +31,7 @@ export default function BeltMovesPage({ track }: BeltMovesPageProps) {
   const searchParamsString = searchParams?.toString() ?? "";
   const cleanedQuery = query.trim().toLowerCase();
   const primaryTheme = primaryThemeByTrack[track.slug];
+  const testModeCopy = testModeCopyByTrack[track.slug];
   const mainRef = useRef<HTMLElement | null>(null);
   const dialogRef = useRef<HTMLDivElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
@@ -253,7 +263,13 @@ export default function BeltMovesPage({ track }: BeltMovesPageProps) {
           </header>
 
           {testMode ? (
-            <MoveTestMode moves={allMoves} theme={track.theme} onExit={() => setTestMode(false)} />
+            <MoveTestMode
+              moves={allMoves}
+              theme={track.theme}
+              completionRankLabel={testModeCopy.completionRankLabel}
+              jumpLabel={testModeCopy.jumpLabel}
+              onExit={() => setTestMode(false)}
+            />
           ) : filteredMoves.length === 0 ? (
             <section
               className="rounded-lg border border-dashed p-4 text-sm"

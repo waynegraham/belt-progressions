@@ -7,6 +7,8 @@ interface MoveTestModeProps {
   moves: BeltMove[];
   theme: BeltTheme;
   onExit: () => void;
+  completionRankLabel?: string;
+  jumpLabel?: string;
 }
 
 type WakeLockSentinelLike = {
@@ -45,7 +47,13 @@ const voiceCommands = {
   exit: [/tap out/, /\bexit\b/, /\bquit\b/, /\bstop\b/, /leave test mode/],
 };
 
-export default function MoveTestMode({ moves, theme, onExit }: MoveTestModeProps) {
+export default function MoveTestMode({
+  moves,
+  theme,
+  onExit,
+  completionRankLabel = "purple",
+  jumpLabel = "Jump to Purple",
+}: MoveTestModeProps) {
   const voiceSupported =
     typeof window !== "undefined" &&
     Boolean(
@@ -402,7 +410,7 @@ export default function MoveTestMode({ moves, theme, onExit }: MoveTestModeProps
                 onClick={() => setCurrentIndex(jumpIndex)}
                 className="rounded-full border border-white/30 px-4 py-2 text-sm text-white transition hover:bg-white/10"
               >
-                Jump to Purple
+                {jumpLabel}
               </button>
             ) : null}
             <button
@@ -417,7 +425,7 @@ export default function MoveTestMode({ moves, theme, onExit }: MoveTestModeProps
           <div className="max-w-3xl">
             <p className={`text-sm uppercase tracking-[0.3em] ${palette.badge}`}>Completion</p>
             <h1 className="mt-6 text-4xl font-bold md:text-6xl">
-              Congratulations, you&apos;re now a purple belt.
+              {`Congratulations, you're now a ${completionRankLabel} belt.`}
             </h1>
             <p className={`mt-6 text-lg md:text-2xl ${palette.completionSubheading}`}>
               Swipe down or left to review the last move, up or right to restart the sequence.
@@ -451,7 +459,7 @@ export default function MoveTestMode({ moves, theme, onExit }: MoveTestModeProps
                   onClick={() => setCurrentIndex(jumpIndex)}
                   className="rounded-full border border-white/30 px-4 py-2 text-sm text-white transition hover:bg-white/10"
                 >
-                  Jump to Purple
+                  {jumpLabel}
                 </button>
               ) : null}
               <button
