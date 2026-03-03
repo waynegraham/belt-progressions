@@ -1,13 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import MoveTestMode from "@/components/MoveTestMode";
 import TrackNav from "@/components/TrackNav";
+import { useVideoModal } from "@/hooks/useVideoModal";
 import type { BeltTrack } from "@/lib/belt-data";
 import { primaryThemeByTrack } from "@/lib/track-ui";
-import { toYouTubeEmbedUrl } from "@/lib/youtube";
 
 interface BeltMovesPageProps {
   track: BeltTrack;
@@ -33,10 +33,6 @@ export default function BeltMovesPage({ track }: BeltMovesPageProps) {
   const cleanedQuery = query.trim().toLowerCase();
   const primaryTheme = primaryThemeByTrack[track.slug];
   const testModeCopy = testModeCopyByTrack[track.slug];
-  const mainRef = useRef<HTMLElement | null>(null);
-  const dialogRef = useRef<HTMLDivElement | null>(null);
-  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
-  const lastFocusedElementRef = useRef<HTMLElement | null>(null);
 
   const allMoves = useMemo(() => [...track.moves].sort((a, b) => a.order - b.order), [track.moves]);
 
@@ -73,141 +69,14 @@ export default function BeltMovesPage({ track }: BeltMovesPageProps) {
         .filter((category) => category.moves.length > 0),
     [cleanedQuery, normalizedCategories],
   );
-  const activeVideoIdFromUrl = searchParams?.get("video") ?? null;
-  const activeMove = useMemo(() => {
-    if (!activeVideoIdFromUrl) {
-      return null;
-    }
-    return allMoves.find((move) => move.id === activeVideoIdFromUrl) ?? null;
-  }, [activeVideoIdFromUrl, allMoves]);
-
-  const activeEmbedUrl = useMemo(() => {
-    if (!activeMove) {
-      return null;
-    }
-    return toYouTubeEmbedUrl(activeMove.youtubeUrl);
-  }, [activeMove]);
-
-  const closeVideoModal = useCallback(() => {
-    const nextParams = new URLSearchParams(searchParamsString);
-    nextParams.delete("video");
-    const nextQuery = nextParams.toString();
-    const nextUrl = nextQuery ? `${currentPathname}?${nextQuery}` : currentPathname;
-    router.replace(nextUrl, { scroll: false });
-  }, [currentPathname, router, searchParamsString]);
-
-  const openVideoModal = useCallback(
-    (videoId: string) => {
-      const activeElement = document.activeElement;
-      if (activeElement instanceof HTMLElement) {
-        lastFocusedElementRef.current = activeElement;
-      }
-      const nextParams = new URLSearchParams(searchParamsString);
-      nextParams.set("video", videoId);
-      router.push(`${currentPathname}?${nextParams.toString()}`, { scroll: false });
-    },
-    [currentPathname, router, searchParamsString],
-  );
-
-  useEffect(() => {
-    if (!activeMove) {
-      return;
-    }
-
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = previousOverflow;
-    };
-  }, [activeMove]);
-
-  useEffect(() => {
-    if (!activeMove) {
-      return;
-    }
-    closeButtonRef.current?.focus();
-  }, [activeMove]);
-
-  useEffect(() => {
-    if (!activeMove) {
-      lastFocusedElementRef.current?.focus();
-      return;
-    }
-
-    const footer = document.querySelector("footer");
-    const main = mainRef.current;
-    if (main) {
-      main.setAttribute("inert", "");
-      main.setAttribute("aria-hidden", "true");
-    }
-    if (footer instanceof HTMLElement) {
-      footer.setAttribute("inert", "");
-      footer.setAttribute("aria-hidden", "true");
-    }
-    return () => {
-      if (main) {
-        main.removeAttribute("inert");
-        main.removeAttribute("aria-hidden");
-      }
-      if (footer instanceof HTMLElement) {
-        footer.removeAttribute("inert");
-        footer.removeAttribute("aria-hidden");
-      }
-    };
-  }, [activeMove]);
-
-  useEffect(() => {
-    if (!activeMove) {
-      return;
-    }
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        closeVideoModal();
-        return;
-      }
-      if (event.key !== "Tab") {
-        return;
-      }
-      const dialog = dialogRef.current;
-      if (!dialog) {
-        return;
-      }
-
-      const selectors = [
-        "a[href]",
-        "button:not([disabled])",
-        "textarea:not([disabled])",
-        "input:not([disabled])",
-        "select:not([disabled])",
-        '[tabindex]:not([tabindex="-1"])',
-      ];
-      const focusable = Array.from(dialog.querySelectorAll<HTMLElement>(selectors.join(","))).filter(
-        (element) => !element.hasAttribute("disabled") && element.getAttribute("aria-hidden") !== "true",
-      );
-      if (focusable.length === 0) {
-        event.preventDefault();
-        return;
-      }
-
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      const activeElement = document.activeElement;
-
-      if (event.shiftKey && activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [activeMove, closeVideoModal]);
+  const { activeMove, activeEmbedUrl, closeVideoModal, openVideoModal, mainRef, dialogRef, closeButtonRef } =
+    useVideoModal({
+      allMoves,
+      currentPathname,
+      searchParams,
+      searchParamsString,
+      router,
+    });
 
   return (
     <>
