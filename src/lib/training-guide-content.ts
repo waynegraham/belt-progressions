@@ -1,11 +1,14 @@
+type NonEmptyArray<T> = [T, ...T[]];
+type AnchorHref = `#${string}`;
+
 export interface GuideNavLink {
-  href: string;
+  href: AnchorHref;
   label: string;
 }
 
 export interface GuidePhase {
   week: string;
-  items: string[];
+  items: NonEmptyArray<string>;
 }
 
 export interface GuideCallout {
@@ -15,56 +18,56 @@ export interface GuideCallout {
 
 export interface WhiteToBlueGuideContent {
   heroIntro: string;
-  onPageLinks: GuideNavLink[];
+  onPageLinks: NonEmptyArray<GuideNavLink>;
   overview: {
-    paragraphs: string[];
-    commonMistakes: string[];
+    paragraphs: NonEmptyArray<string>;
+    commonMistakes: NonEmptyArray<string>;
     trainingStructure: string;
-    sessionFlow: string[];
+    sessionFlow: NonEmptyArray<string>;
     nonNegotiable: GuideCallout;
-    writeDown: string[];
-    betterQuestions: string[];
+    writeDown: NonEmptyArray<string>;
+    betterQuestions: NonEmptyArray<string>;
     closing: string;
   };
-  thirtyDayPlan: GuidePhase[];
+  thirtyDayPlan: NonEmptyArray<GuidePhase>;
   sharkTank: {
     paragraph: string;
     callout: GuideCallout;
-    priorities: string[];
+    priorities: NonEmptyArray<string>;
   };
 }
 
 export interface BlueToPurpleGuideContent {
   heroIntro: string;
-  onPageLinks: GuideNavLink[];
+  onPageLinks: NonEmptyArray<GuideNavLink>;
   overview: {
-    paragraphs: string[];
-    asks: string[];
+    paragraphs: NonEmptyArray<string>;
+    asks: NonEmptyArray<string>;
   };
   technique: {
-    paragraphs: string[];
+    paragraphs: NonEmptyArray<string>;
   };
   showYourGame: {
-    paragraphs: string[];
-    defineForEveryPosition: string[];
+    paragraphs: NonEmptyArray<string>;
+    defineForEveryPosition: NonEmptyArray<string>;
     callout: GuideCallout;
-    exampleStructure: Array<{
+    exampleStructure: NonEmptyArray<{
       title: string;
-      steps: string[];
+      steps: NonEmptyArray<string>;
     }>;
     trainingLead: string;
-    trainingSteps: string[];
+    trainingSteps: NonEmptyArray<string>;
     trainingClosing: string;
   };
-  thirtyDayPlan: GuidePhase[];
+  thirtyDayPlan: NonEmptyArray<GuidePhase>;
   sharkTank: {
     paragraph: string;
-    priorities: string[];
+    priorities: NonEmptyArray<string>;
     callout: GuideCallout;
   };
 }
 
-export const whiteToBlueGuideContent: WhiteToBlueGuideContent = {
+export const whiteToBlueGuideContent = {
   heroIntro:
     "Congratulations, you got the email (or your instructor told you) that it is time to prepare for your test. You already know the moves. This guide helps structure practice sessions so you can ease nerves and perform with control and composure.",
   onPageLinks: [
@@ -152,9 +155,9 @@ export const whiteToBlueGuideContent: WhiteToBlueGuideContent = {
     },
     priorities: ["Frames first", "Guard retention", "Inside position", "Grip discipline", "Controlled breathing"],
   },
-};
+} satisfies WhiteToBlueGuideContent;
 
-export const blueToPurpleGuideContent: BlueToPurpleGuideContent = {
+export const blueToPurpleGuideContent = {
   heroIntro:
     "Congratulations, you got the email (or your instructor told you) that it is time to prepare for your test. This guide gives some tips to help you structure practice sessions to ease your nerves for test day.",
   onPageLinks: [
@@ -271,4 +274,4 @@ export const blueToPurpleGuideContent: BlueToPurpleGuideContent = {
       content: "Control your breathing.",
     },
   },
-};
+} satisfies BlueToPurpleGuideContent;
