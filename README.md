@@ -39,6 +39,7 @@ The project unifies curriculum review and preparation workflows for:
 - `src/components/training/*.tsx`: belt-specific and generic training guide layouts/content
 - `src/lib/belt-data.ts`: normalized belt track data, themes, and utilities
 - `src/lib/track-ui.ts`: shared track theme classes for curriculum/training pages
+- `src/lib/training-guide-content.ts`: structured long-form training guide copy and 30-day plans
 - `src/lib/white-belt.json`, `src/lib/blue-belt.json`: source move lists
 
 ## Local Development
@@ -71,7 +72,8 @@ npm run dev
 - Update source move lists in `src/lib/white-belt.json` and `src/lib/blue-belt.json`.
 - Belt metadata, themes, and derived move mapping live in `src/lib/belt-data.ts`.
 - Shared track page theme classes live in `src/lib/track-ui.ts`.
-- Training guide copy lives in `src/components/training/`.
+- Training guide copy/sections/plans live in `src/lib/training-guide-content.ts`.
+- Training guide rendering/layout lives in `src/components/training/`.
 
 ### Editing the Test Preparation Guide
 
@@ -79,7 +81,7 @@ The route entry point is `src/app/[belt]/training/page.tsx`, which selects the p
 
 - White to Blue guide: edit `src/components/training/WhiteToBlueGuide.tsx`.
 - Blue to Purple guide: edit `src/components/training/BlueToPurpleGuide.tsx`.
-- 30-day plans: update the plan arrays in the corresponding guide component.
+- Guide copy and 30-day plans: update `src/lib/training-guide-content.ts`.
 - Purple to Brown (and any non-custom track): update `trainingRecommendations` in `src/lib/belt-data.ts` and the generic layout in `src/components/training/GenericTrainingGuide.tsx` as needed.
 
 After making content changes, run the app and verify:
