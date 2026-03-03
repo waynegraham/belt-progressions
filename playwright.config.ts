@@ -17,9 +17,9 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: "pnpm run dev --port 4173",
+    command: "pnpm exec next dev -p 4173 -H 127.0.0.1",
     url: "http://127.0.0.1:4173",
     reuseExistingServer: !process.env.CI,
-    timeout: 120000,
+    timeout: 300000,
   },
 });
