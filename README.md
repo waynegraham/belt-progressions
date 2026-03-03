@@ -32,10 +32,13 @@ The project unifies curriculum review and preparation workflows for:
 
 - `src/app/page.tsx`: home page / belt selection
 - `src/app/[belt]/page.tsx`: curriculum page per belt
-- `src/app/[belt]/training/page.tsx`: training guide per belt
+- `src/app/[belt]/training/page.tsx`: training guide route coordinator per belt
 - `src/components/BeltMovesPage.tsx`: searchable move list + video modal + Test Mode entry
 - `src/components/MoveTestMode.tsx`: fullscreen test experience
+- `src/components/TrackNav.tsx`: shared belt navigation + theme toggle
+- `src/components/training/*.tsx`: belt-specific and generic training guide layouts/content
 - `src/lib/belt-data.ts`: normalized belt track data, themes, and utilities
+- `src/lib/track-ui.ts`: shared track theme classes for curriculum/training pages
 - `src/lib/white-belt.json`, `src/lib/blue-belt.json`: source move lists
 
 ## Local Development
@@ -67,16 +70,17 @@ npm run dev
 
 - Update source move lists in `src/lib/white-belt.json` and `src/lib/blue-belt.json`.
 - Belt metadata, themes, and derived move mapping live in `src/lib/belt-data.ts`.
-- Training guide copy lives in `src/app/[belt]/training/page.tsx`.
+- Shared track page theme classes live in `src/lib/track-ui.ts`.
+- Training guide copy lives in `src/components/training/`.
 
 ### Editing the Test Preparation Guide
 
-The Test Preparation guide content is defined in `src/app/[belt]/training/page.tsx`.
+The route entry point is `src/app/[belt]/training/page.tsx`, which selects the proper guide component.
 
-- White to Blue guide: edit the `if (track.slug === "white-to-blue")` block.
-- Blue to Purple guide: edit the `if (track.slug === "blue-to-purple")` block.
-- 30-day plans: update `whiteToBlueThirtyDayPlan` and `blueToPurpleThirtyDayPlan` at the top of the file.
-- Purple to Brown (and any non-custom track): update `trainingRecommendations` in `src/lib/belt-data.ts`.
+- White to Blue guide: edit `src/components/training/WhiteToBlueGuide.tsx`.
+- Blue to Purple guide: edit `src/components/training/BlueToPurpleGuide.tsx`.
+- 30-day plans: update the plan arrays in the corresponding guide component.
+- Purple to Brown (and any non-custom track): update `trainingRecommendations` in `src/lib/belt-data.ts` and the generic layout in `src/components/training/GenericTrainingGuide.tsx` as needed.
 
 After making content changes, run the app and verify:
 
