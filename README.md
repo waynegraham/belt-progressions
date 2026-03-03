@@ -66,6 +66,30 @@ npm run dev
 - `npm run start`: run production server
 - `npm run lint`: run ESLint
 - `npm test`: run Jest test suite
+- `npm run test:e2e`: run Playwright smoke tests
+- `npm run test:e2e:headed`: run Playwright smoke tests in headed mode
+
+## Testing
+
+Current automated coverage includes:
+
+- Component behavior tests in `src/components/__tests__/`:
+  - `BeltMovesPage.test.tsx`
+  - `MoveTestMode.test.tsx`
+  - `ThemeToggleButton.test.tsx`
+- Training route coordinator tests in `src/app/__tests__/belt-training-page.test.tsx`
+- Modal hook tests in `src/hooks/__tests__/useVideoModal.test.tsx`
+- YouTube parsing utility tests in `src/lib/__tests__/youtube.test.tsx`
+- Training content contract tests in `src/lib/__tests__/training-guide-content.test.tsx`
+- E2E smoke tests in `e2e/` using Playwright
+
+For first-time Playwright setup, install browsers:
+
+```bash
+npx playwright install
+```
+
+When adding features, place tests near the related layer (component, app route, hook, or lib utility) to keep scope focused.
 
 ## Data and Content Updates
 
