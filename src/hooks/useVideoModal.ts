@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef } from "react";
+import type { RefObject } from "react";
 import type { BeltMove } from "@/lib/belt-data";
 import { toYouTubeEmbedUrl } from "@/lib/youtube";
 
@@ -26,9 +27,9 @@ interface UseVideoModalResult {
   activeEmbedUrl: string | null;
   closeVideoModal: () => void;
   openVideoModal: (videoId: string) => void;
-  mainRef: ReturnType<typeof useRef<HTMLElement | null>>;
-  dialogRef: ReturnType<typeof useRef<HTMLDivElement | null>>;
-  closeButtonRef: ReturnType<typeof useRef<HTMLButtonElement | null>>;
+  mainRef: RefObject<HTMLElement | null>;
+  dialogRef: RefObject<HTMLDivElement | null>;
+  closeButtonRef: RefObject<HTMLButtonElement | null>;
 }
 
 export function useVideoModal({
