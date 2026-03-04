@@ -8,6 +8,8 @@ export function generateStaticParams() {
   return beltSlugs.map((belt) => ({ belt }));
 }
 
-export default function BeltSegmentLayout({ children }: BeltSegmentLayoutProps) {
+export default function BeltSegmentLayout({
+  children,
+}: BeltSegmentLayoutProps) {
   return children;
 }

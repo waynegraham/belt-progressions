@@ -52,7 +52,10 @@ interface RawMoveCategory {
   }>;
 }
 
-function mapRawMoveCategories(rawCategories: RawMoveCategory[], prefix: string): BeltMoveCategory[] {
+function mapRawMoveCategories(
+  rawCategories: RawMoveCategory[],
+  prefix: string,
+): BeltMoveCategory[] {
   let order = 0;
 
   return rawCategories.map((category, categoryIndex) => ({
@@ -73,8 +76,14 @@ function mapRawMoveCategories(rawCategories: RawMoveCategory[], prefix: string):
   }));
 }
 
-const whiteToBlueCategories = mapRawMoveCategories(whiteBeltData as RawMoveCategory[], "w2b");
-const blueToPurpleCategories = mapRawMoveCategories(blueBeltData as RawMoveCategory[], "b2p");
+const whiteToBlueCategories = mapRawMoveCategories(
+  whiteBeltData as RawMoveCategory[],
+  "w2b",
+);
+const blueToPurpleCategories = mapRawMoveCategories(
+  blueBeltData as RawMoveCategory[],
+  "b2p",
+);
 
 const whiteToBlue: BeltTrack = {
   slug: "white-to-blue",
@@ -171,7 +180,8 @@ const purpleToBrown: BeltTrack = {
     {
       id: "p2b-2",
       name: "Arm Triangle from Mount",
-      summary: "Force head-and-arm alignment and finish with shoulder pressure.",
+      summary:
+        "Force head-and-arm alignment and finish with shoulder pressure.",
       order: 2,
       tags: ["submission", "mount"],
       youtubeUrl: "https://www.youtube.com/watch?v=E6Mqs7Q9f8A",

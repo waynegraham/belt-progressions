@@ -20,7 +20,10 @@ export default function VideoModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/70 p-0 md:p-6" onClick={onClose}>
+    <div
+      className="fixed inset-0 z-50 bg-black/70 p-0 md:p-6"
+      onClick={onClose}
+    >
       <div
         ref={dialogRef}
         role="dialog"
@@ -30,7 +33,9 @@ export default function VideoModal({
         className="mx-auto flex h-full w-full flex-col bg-black md:h-auto md:max-w-5xl md:rounded-xl"
       >
         <div className="flex items-center justify-between px-4 py-3 text-white">
-          <p className="truncate pr-4 text-sm font-semibold md:text-base">{activeMove.name}</p>
+          <p className="truncate pr-4 text-sm font-semibold md:text-base">
+            {activeMove.name}
+          </p>
           <button
             ref={closeButtonRef}
             type="button"
@@ -54,7 +59,12 @@ export default function VideoModal({
             <div className="flex h-full items-center justify-center p-6 text-center text-sm text-white md:min-h-[360px]">
               <div>
                 <p>Unable to embed this video.</p>
-                <a href={activeMove.youtubeUrl} target="_blank" rel="noopener noreferrer" className="underline">
+                <a
+                  href={activeMove.youtubeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline"
+                >
                   Open on YouTube
                 </a>
               </div>

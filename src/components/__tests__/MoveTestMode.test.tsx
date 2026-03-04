@@ -80,7 +80,9 @@ describe("MoveTestMode", () => {
     fireEvent.keyDown(window, { key: "ArrowRight" });
     fireEvent.keyDown(window, { key: "ArrowRight" });
 
-    expect(screen.getByText("Congratulations, you're now a brown belt.")).toBeInTheDocument();
+    expect(
+      screen.getByText("Congratulations, you're now a brown belt."),
+    ).toBeInTheDocument();
   });
 
   it("uses configurable jump label when jump target exists", () => {
@@ -112,6 +114,8 @@ describe("MoveTestMode", () => {
       />,
     );
 
-    expect(screen.getByRole("button", { name: "Jump to Brown" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Jump to Brown" }),
+    ).toBeInTheDocument();
   });
 });

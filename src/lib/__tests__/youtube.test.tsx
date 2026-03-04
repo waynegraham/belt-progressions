@@ -9,9 +9,9 @@ describe("youtube utilities", () => {
     });
 
     it("converts watch links with start query", () => {
-      expect(toYouTubeEmbedUrl("https://www.youtube.com/watch?v=abc123&start=15")).toBe(
-        "https://www.youtube.com/embed/abc123?rel=0&start=15",
-      );
+      expect(
+        toYouTubeEmbedUrl("https://www.youtube.com/watch?v=abc123&start=15"),
+      ).toBe("https://www.youtube.com/embed/abc123?rel=0&start=15");
     });
 
     it("converts shorts links", () => {
@@ -21,9 +21,9 @@ describe("youtube utilities", () => {
     });
 
     it("parses hash time", () => {
-      expect(toYouTubeEmbedUrl("https://www.youtube.com/watch?v=abc123#t=2m")).toBe(
-        "https://www.youtube.com/embed/abc123?rel=0&start=120",
-      );
+      expect(
+        toYouTubeEmbedUrl("https://www.youtube.com/watch?v=abc123#t=2m"),
+      ).toBe("https://www.youtube.com/embed/abc123?rel=0&start=120");
     });
 
     it("returns null for non-youtube links", () => {

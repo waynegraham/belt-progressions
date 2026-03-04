@@ -57,14 +57,30 @@ export default function MoveTestMode({
   const voiceSupported =
     typeof window !== "undefined" &&
     Boolean(
-      (window as Window & { SpeechRecognition?: SpeechRecognitionCtor; webkitSpeechRecognition?: SpeechRecognitionCtor })
-        .SpeechRecognition ||
-        (window as Window & { SpeechRecognition?: SpeechRecognitionCtor; webkitSpeechRecognition?: SpeechRecognitionCtor })
-          .webkitSpeechRecognition,
+      (
+        window as Window & {
+          SpeechRecognition?: SpeechRecognitionCtor;
+          webkitSpeechRecognition?: SpeechRecognitionCtor;
+        }
+      ).SpeechRecognition ||
+      (
+        window as Window & {
+          SpeechRecognition?: SpeechRecognitionCtor;
+          webkitSpeechRecognition?: SpeechRecognitionCtor;
+        }
+      ).webkitSpeechRecognition,
     );
-  const sortedMoves = useMemo(() => [...moves].sort((a, b) => a.order - b.order), [moves]);
+  const sortedMoves = useMemo(
+    () => [...moves].sort((a, b) => a.order - b.order),
+    [moves],
+  );
   const jumpIndex = useMemo(
-    () => sortedMoves.findIndex((move) => move.tags.some((tag) => tag.toLowerCase() === "standing defenses from the front")),
+    () =>
+      sortedMoves.findIndex((move) =>
+        move.tags.some(
+          (tag) => tag.toLowerCase() === "standing defenses from the front",
+        ),
+      ),
     [sortedMoves],
   );
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -79,11 +95,13 @@ export default function MoveTestMode({
   const shouldKeepListeningRef = useRef(false);
   const manualStopRef = useRef(false);
   const bannerTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const restartVoiceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const restartVoiceTimerRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null,
+  );
   const touchStartRef = useRef<{ x: number; y: number } | null>(null);
 
   const isComplete = currentIndex >= sortedMoves.length;
-  const currentMove = isComplete ? null : sortedMoves[currentIndex] ?? null;
+  const currentMove = isComplete ? null : (sortedMoves[currentIndex] ?? null);
 
   const showBanner = useCallback((message: string) => {
     setBanner(message);
@@ -144,7 +162,8 @@ export default function MoveTestMode({
 
   const parseVoiceCommand = useCallback(
     (transcript: string) => {
-      const test = (patterns: RegExp[]) => patterns.some((pattern) => pattern.test(transcript));
+      const test = (patterns: RegExp[]) =>
+        patterns.some((pattern) => pattern.test(transcript));
       if (test(voiceCommands.next)) {
         goNext();
         return;
@@ -168,7 +187,8 @@ export default function MoveTestMode({
       SpeechRecognition?: SpeechRecognitionCtor;
       webkitSpeechRecognition?: SpeechRecognitionCtor;
     };
-    const Recognition = maybeWindow.SpeechRecognition ?? maybeWindow.webkitSpeechRecognition;
+    const Recognition =
+      maybeWindow.SpeechRecognition ?? maybeWindow.webkitSpeechRecognition;
     if (!Recognition) {
       return null;
     }
@@ -188,7 +208,10 @@ export default function MoveTestMode({
     };
 
     recognition.onerror = (event) => {
-      if (event?.error === "not-allowed" || event?.error === "service-not-allowed") {
+      if (
+        event?.error === "not-allowed" ||
+        event?.error === "service-not-allowed"
+      ) {
         setPermissionDenied(true);
         shouldKeepListeningRef.current = false;
         setIsListening(false);
@@ -369,13 +392,17 @@ export default function MoveTestMode({
       onTouchEnd={handleTouchEnd}
     >
       {banner ? (
-        <div className={`absolute left-1/2 top-4 z-20 w-[92%] max-w-xl -translate-x-1/2 rounded-full border px-6 py-3 text-center text-sm text-white shadow-lg backdrop-blur ${palette.banner}`}>
+        <div
+          className={`absolute top-4 left-1/2 z-20 w-[92%] max-w-xl -translate-x-1/2 rounded-full border px-6 py-3 text-center text-sm text-white shadow-lg backdrop-blur ${palette.banner}`}
+        >
           {banner}
         </div>
       ) : null}
 
       {sortedMoves.length === 0 ? (
-        <div className={`flex flex-1 flex-col items-center justify-center px-6 ${palette.emptyScreen}`}>
+        <div
+          className={`flex flex-1 flex-col items-center justify-center px-6 ${palette.emptyScreen}`}
+        >
           <p className="text-2xl font-semibold">No moves available.</p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <button
@@ -395,15 +422,17 @@ export default function MoveTestMode({
           </div>
         </div>
       ) : isComplete ? (
-        <div className={`flex flex-1 items-center justify-center px-6 text-center ${palette.completionScreen}`}>
+        <div
+          className={`flex flex-1 items-center justify-center px-6 text-center ${palette.completionScreen}`}
+        >
           <button
             type="button"
             onClick={handleExit}
-            className="absolute right-6 top-6 rounded-full border border-white/30 px-4 py-2 text-sm text-white transition hover:bg-white/10"
+            className="absolute top-6 right-6 rounded-full border border-white/30 px-4 py-2 text-sm text-white transition hover:bg-white/10"
           >
             Exit Fullscreen
           </button>
-          <div className="absolute left-6 top-6 flex items-center gap-3">
+          <div className="absolute top-6 left-6 flex items-center gap-3">
             {jumpEnabled ? (
               <button
                 type="button"
@@ -423,12 +452,19 @@ export default function MoveTestMode({
           </div>
 
           <div className="max-w-3xl">
-            <p className={`text-sm uppercase tracking-[0.3em] ${palette.badge}`}>Completion</p>
+            <p
+              className={`text-sm tracking-[0.3em] uppercase ${palette.badge}`}
+            >
+              Completion
+            </p>
             <h1 className="mt-6 text-4xl font-bold md:text-6xl">
               {`Congratulations, you're now a ${completionRankLabel} belt.`}
             </h1>
-            <p className={`mt-6 text-lg md:text-2xl ${palette.completionSubheading}`}>
-              Swipe down or left to review the last move, up or right to restart the sequence.
+            <p
+              className={`mt-6 text-lg md:text-2xl ${palette.completionSubheading}`}
+            >
+              Swipe down or left to review the last move, up or right to restart
+              the sequence.
             </p>
             <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
               <button
@@ -451,7 +487,11 @@ export default function MoveTestMode({
       ) : (
         <>
           <div className="flex items-center justify-between px-6 py-6">
-            <div className={`text-xs uppercase tracking-[0.35em] ${palette.badge}`}>Test Mode</div>
+            <div
+              className={`text-xs tracking-[0.35em] uppercase ${palette.badge}`}
+            >
+              Test Mode
+            </div>
             <div className="flex items-center gap-3">
               {jumpEnabled ? (
                 <button
@@ -481,10 +521,20 @@ export default function MoveTestMode({
 
           <div className="flex flex-1 items-center justify-center px-6">
             <div className="w-full max-w-4xl">
-              <p className={`text-sm uppercase tracking-[0.3em] ${palette.sectionLabel}`}>{currentMove?.tags[0] ?? "Section"}</p>
-              <h1 className={`mt-6 text-4xl font-bold md:text-6xl ${palette.moveTitle}`}>{currentMove?.name}</h1>
+              <p
+                className={`text-sm tracking-[0.3em] uppercase ${palette.sectionLabel}`}
+              >
+                {currentMove?.tags[0] ?? "Section"}
+              </p>
+              <h1
+                className={`mt-6 text-4xl font-bold md:text-6xl ${palette.moveTitle}`}
+              >
+                {currentMove?.name}
+              </h1>
               <p className="mt-6 text-lg text-slate-200 md:text-2xl">
-                {currentMove?.summary?.trim() ? currentMove.summary : "Perform the move with control and intent."}
+                {currentMove?.summary?.trim()
+                  ? currentMove.summary
+                  : "Perform the move with control and intent."}
               </p>
               <div className="mt-10 flex flex-wrap items-center gap-4">
                 {currentMove ? (
@@ -497,7 +547,9 @@ export default function MoveTestMode({
                     Watch Video
                   </a>
                 ) : null}
-                <div className="text-sm text-slate-300">Swipe up or right for next, down or left for previous.</div>
+                <div className="text-sm text-slate-300">
+                  Swipe up or right for next, down or left for previous.
+                </div>
                 <div className="text-sm text-slate-300">
                   {voiceSupported
                     ? "Tap Start Voice to enable voice commands."
@@ -508,7 +560,9 @@ export default function MoveTestMode({
           </div>
 
           <div className="flex items-center justify-between border-t border-white/10 px-6 py-4 text-sm text-slate-300">
-            <span>Move {currentIndex + 1} of {sortedMoves.length}</span>
+            <span>
+              Move {currentIndex + 1} of {sortedMoves.length}
+            </span>
             <span>
               {permissionDenied
                 ? "Microphone access blocked."
@@ -531,7 +585,8 @@ function getPalette(theme: BeltTheme) {
       baseScreen: "bg-slate-950",
       banner: "border-white/20 bg-slate-900/90",
       emptyScreen: "bg-slate-950",
-      completionScreen: "bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900",
+      completionScreen:
+        "bg-gradient-to-br from-slate-950 via-blue-950 to-slate-900",
       completionSubheading: "text-blue-100",
       primaryButton: "bg-white hover:bg-blue-100",
       badge: "text-blue-200",
@@ -545,7 +600,8 @@ function getPalette(theme: BeltTheme) {
       baseScreen: "bg-stone-950",
       banner: "border-white/20 bg-stone-900/90",
       emptyScreen: "bg-stone-950",
-      completionScreen: "bg-gradient-to-br from-stone-950 via-yellow-950 to-stone-900",
+      completionScreen:
+        "bg-gradient-to-br from-stone-950 via-yellow-950 to-stone-900",
       completionSubheading: "text-yellow-100",
       primaryButton: "bg-white hover:bg-yellow-100",
       badge: "text-yellow-200",
@@ -558,7 +614,8 @@ function getPalette(theme: BeltTheme) {
     baseScreen: "bg-slate-950",
     banner: "border-white/20 bg-slate-900/90",
     emptyScreen: "bg-slate-950",
-    completionScreen: "bg-gradient-to-br from-slate-950 via-purple-950 to-slate-900",
+    completionScreen:
+      "bg-gradient-to-br from-slate-950 via-purple-950 to-slate-900",
     completionSubheading: "text-purple-100",
     primaryButton: "bg-white hover:bg-purple-100",
     badge: "text-purple-200",

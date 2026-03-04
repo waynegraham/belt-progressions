@@ -9,7 +9,9 @@ interface BeltTrainingPageProps {
   params: Promise<{ belt: string }>;
 }
 
-export default async function BeltTrainingPage({ params }: BeltTrainingPageProps) {
+export default async function BeltTrainingPage({
+  params,
+}: BeltTrainingPageProps) {
   const resolvedParams = await params;
   if (!isBeltSlug(resolvedParams.belt)) {
     notFound();
@@ -27,7 +29,13 @@ export default async function BeltTrainingPage({ params }: BeltTrainingPageProps
     return <BlueToPurpleGuide title={title} primaryTheme={primaryTheme} />;
   }
 
-  return <GenericTrainingGuide track={track} title={title} primaryTheme={primaryTheme} />;
+  return (
+    <GenericTrainingGuide
+      track={track}
+      title={title}
+      primaryTheme={primaryTheme}
+    />
+  );
 }
 
 function toPreparationTitle(label: string): string {

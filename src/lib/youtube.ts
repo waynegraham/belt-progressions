@@ -25,7 +25,8 @@ export function toYouTubeEmbedUrl(url: string): string | null {
       return null;
     }
 
-    const startParam = startSeconds && startSeconds > 0 ? `&start=${startSeconds}` : "";
+    const startParam =
+      startSeconds && startSeconds > 0 ? `&start=${startSeconds}` : "";
     return `https://www.youtube.com/embed/${videoId}?rel=0${startParam}`;
   } catch {
     return null;
@@ -79,7 +80,9 @@ export function parseYouTubeTimeString(value: string): number | null {
   const minutes = Number.parseInt(timeMatch[2] ?? "0", 10);
   const seconds = Number.parseInt(timeMatch[3] ?? "0", 10);
 
-  if (![hours, minutes, seconds].every((num) => Number.isFinite(num) && num >= 0)) {
+  if (
+    ![hours, minutes, seconds].every((num) => Number.isFinite(num) && num >= 0)
+  ) {
     return null;
   }
 

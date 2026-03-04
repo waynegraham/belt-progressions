@@ -27,7 +27,11 @@ export default function ThemeToggleButton() {
       aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
       aria-pressed={theme === "dark"}
     >
-      {theme === "dark" ? <IoSunny className="h-5 w-5" aria-hidden="true" /> : <IoMoon className="h-5 w-5" aria-hidden="true" />}
+      {theme === "dark" ? (
+        <IoSunny className="h-5 w-5" aria-hidden="true" />
+      ) : (
+        <IoMoon className="h-5 w-5" aria-hidden="true" />
+      )}
     </button>
   );
 }
@@ -42,7 +46,9 @@ function getPreferredTheme(): Theme {
     return saved;
   }
 
-  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
 }
 
 function applyTheme(theme: Theme) {

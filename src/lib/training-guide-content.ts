@@ -81,7 +81,10 @@ export const whiteToBlueGuideContent = {
       "The test has two parts: technique and a shark tank. You are being evaluated on clean execution, order, control, and composure.",
       "Select a uke who is close to your size, has completed this test, and can support your prep sessions and test-day logistics.",
     ],
-    commonMistakes: ["Rushing through techniques", "Skipping key positional moments"],
+    commonMistakes: [
+      "Rushing through techniques",
+      "Skipping key positional moments",
+    ],
     trainingStructure:
       "Train in the exact order of the list since the test follows this sequence. Repeating the order builds muscle memory.",
     sessionFlow: [
@@ -153,7 +156,13 @@ export const whiteToBlueGuideContent = {
       accentColor: "#2563eb",
       content: "You do not get a medal for not tapping.",
     },
-    priorities: ["Frames first", "Guard retention", "Inside position", "Grip discipline", "Controlled breathing"],
+    priorities: [
+      "Frames first",
+      "Guard retention",
+      "Inside position",
+      "Grip discipline",
+      "Controlled breathing",
+    ],
   },
 } satisfies WhiteToBlueGuideContent;
 
@@ -197,7 +206,8 @@ export const blueToPurpleGuideContent = {
     ],
     callout: {
       accentColor: "#7c3aed",
-      content: "This creates decision trees. You are not improvising. You are executing a system.",
+      content:
+        "This creates decision trees. You are not improvising. You are executing a system.",
     },
     exampleStructure: [
       {
@@ -232,7 +242,10 @@ export const blueToPurpleGuideContent = {
   thirtyDayPlan: [
     {
       week: "Week 1 - Organize",
-      items: ["Drill technique clusters in order.", "Write out positional blueprints."],
+      items: [
+        "Drill technique clusters in order.",
+        "Write out positional blueprints.",
+      ],
     },
     {
       week: "Week 2 - System Build",

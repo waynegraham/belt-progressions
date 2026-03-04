@@ -16,7 +16,9 @@ test("white-to-blue smoke flow", async ({ page }) => {
   await expect(page.getByRole("dialog")).toHaveCount(0);
 
   await page.getByRole("button", { name: "Test Mode" }).click();
-  await expect(page.getByRole("button", { name: "Exit Fullscreen" })).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "Exit Fullscreen" }),
+  ).toBeVisible();
   await page.getByRole("button", { name: "Exit Fullscreen" }).click();
   await expect(page.getByRole("button", { name: "Test Mode" })).toBeVisible();
 });

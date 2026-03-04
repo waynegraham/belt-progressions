@@ -22,15 +22,20 @@ export default function BeltMovesHeader({
 }: BeltMovesHeaderProps) {
   return (
     <header className="space-y-4">
-      <TrackNav activeSlug={track.slug} activeClassName={primaryTheme.activeNavClass} />
+      <TrackNav
+        activeSlug={track.slug}
+        activeClassName={primaryTheme.activeNavClass}
+      />
 
       <h1
-        className={`bg-clip-text text-7xl font-extrabold leading-tight text-transparent md:text-7xl print:bg-none print:text-black ${primaryTheme.headingGradientClass}`}
+        className={`bg-clip-text text-7xl leading-tight font-extrabold text-transparent md:text-7xl print:bg-none print:text-black ${primaryTheme.headingGradientClass}`}
       >
         {track.label}
       </h1>
 
-      <p className={`mb-8 inline-block text-2xl font-semibold tracking-tighter ${primaryTheme.textClass}`}>
+      <p
+        className={`mb-8 inline-block text-2xl font-semibold tracking-tighter ${primaryTheme.textClass}`}
+      >
         {toRequirementTitle(track.label)}
       </p>
 
@@ -45,7 +50,10 @@ export default function BeltMovesHeader({
         <Link
           href={`/${track.slug}/training`}
           className="inline-flex h-11 items-center justify-center rounded-full border px-5 text-sm font-medium hover:bg-slate-50"
-          style={{ borderColor: "var(--border-1)", backgroundColor: "var(--surface-1)" }}
+          style={{
+            borderColor: "var(--border-1)",
+            backgroundColor: "var(--surface-1)",
+          }}
         >
           Test Preparation Guide
         </Link>
@@ -67,7 +75,7 @@ export default function BeltMovesHeader({
           onChange={(event) => onQueryChange(event.target.value)}
           placeholder="Search"
           aria-label="Search techniques"
-          className="w-full rounded-md border px-3 py-2 text-sm outline-none ring-sky-400 focus:ring"
+          className="w-full rounded-md border px-3 py-2 text-sm ring-sky-400 outline-none focus:ring"
           style={{
             borderColor: "var(--input-border)",
             backgroundColor: "var(--input-bg)",

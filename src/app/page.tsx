@@ -21,11 +21,20 @@ export default function Home() {
           }}
         >
           <div className="flex items-center justify-between gap-3">
-            <p className="text-sm font-semibold tracking-wide md:text-lg">BJJ Test Prep</p>
+            <p className="text-sm font-semibold tracking-wide md:text-lg">
+              BJJ Test Prep
+            </p>
             <div className="flex items-center gap-4">
-              <nav className="hidden gap-6 text-sm md:flex" style={{ color: "var(--nav-text)" }}>
+              <nav
+                className="hidden gap-6 text-sm md:flex"
+                style={{ color: "var(--nav-text)" }}
+              >
                 {beltTrackList.map((track) => (
-                  <Link key={track.slug} href={`/${track.slug}`} className="hover:text-[var(--foreground)]">
+                  <Link
+                    key={track.slug}
+                    href={`/${track.slug}`}
+                    className="hover:text-[var(--foreground)]"
+                  >
                     {track.label}
                   </Link>
                 ))}
@@ -44,15 +53,16 @@ export default function Home() {
           }}
         >
           <div className="space-y-5">
-            <h1 className="text-4xl font-bold leading-tight md:text-6xl">
+            <h1 className="text-4xl leading-tight font-bold md:text-6xl">
               Test Prep for Your{" "}
-              <span className="belt-color-cycle">
-                Next Belt
-              </span>
+              <span className="belt-color-cycle">Next Belt</span>
             </h1>
-            <p className="max-w-xl text-base md:text-xl" style={{ color: "var(--text-muted)" }}>
-              A focused prep framework for what to drill, how to review, and how to train for
-              your promotion test.
+            <p
+              className="max-w-xl text-base md:text-xl"
+              style={{ color: "var(--text-muted)" }}
+            >
+              A focused prep framework for what to drill, how to review, and how
+              to train for your promotion test.
             </p>
             <div className="grid gap-3 sm:grid-cols-3">
               {beltTrackList.map((track) => (
@@ -67,7 +77,7 @@ export default function Home() {
               ))}
             </div>
             <p className="text-sm" style={{ color: "var(--text-muted)" }}>
-              A community resource to help you prepare with clarity and intent. 
+              A community resource to help you prepare with clarity and intent.
             </p>
           </div>
 
@@ -77,8 +87,7 @@ export default function Home() {
               aria-label="Brazilian Jiu Jitsu training partners drilling"
               className="h-full min-h-[260px] w-full rounded-xl bg-cover bg-center md:min-h-[420px]"
               style={{
-                backgroundImage:
-                  "url('/belt-progressions/belt.png')",
+                backgroundImage: "url('/belt-progressions/belt.png')",
               }}
             />
           </div>
@@ -87,4 +96,3 @@ export default function Home() {
     </main>
   );
 }
-

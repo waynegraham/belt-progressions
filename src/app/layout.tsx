@@ -46,32 +46,52 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
         {children}
         <footer className="mb-16 px-4 md:px-8">
           <div className="mx-auto max-w-4xl">
-            <ul className="font-sm mt-8 flex flex-col space-x-0 space-y-2 text-neutral-600 md:flex-row md:space-x-4 md:space-y-0 dark:text-neutral-300">
+            <ul className="font-sm mt-8 flex flex-col space-y-2 space-x-0 text-neutral-600 md:flex-row md:space-y-0 md:space-x-4 dark:text-neutral-300">
               <li>
-                <a className="inline-flex items-center gap-1" target="_blank" rel="noopener noreferrer" href="https://github.com/waynegraham">
+                <a
+                  className="inline-flex items-center gap-1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://github.com/waynegraham"
+                >
                   github
                   <GoArrowUpRight aria-hidden="true" />
                 </a>
               </li>
               <li>
-                <a className="inline-flex items-center gap-1" target="_blank" rel="noopener noreferrer" href="https://github.com/waynegraham/belt-progressions/">
+                <a
+                  className="inline-flex items-center gap-1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://github.com/waynegraham/belt-progressions/"
+                >
                   view sourcecode
                   <GoArrowUpRight aria-hidden="true" />
                 </a>
               </li>
               <li>
-                <a className="inline-flex items-center gap-1" target="_blank" rel="noopener noreferrer" href="https://github.com/waynegraham/belt-progressions/blob/main/LICENSE">
+                <a
+                  className="inline-flex items-center gap-1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://github.com/waynegraham/belt-progressions/blob/main/LICENSE"
+                >
                   mit license
                   <GoArrowUpRight aria-hidden="true" />
                 </a>
               </li>
             </ul>
 
-            <p className="mt-8 text-neutral-600 dark:text-neutral-300">&copy; {new Date().getFullYear()} <a href="https://waynegraham.github.io">Wayne Graham</a></p>
+            <p className="mt-8 text-neutral-600 dark:text-neutral-300">
+              &copy; {new Date().getFullYear()}{" "}
+              <a href="https://waynegraham.github.io">Wayne Graham</a>
+            </p>
           </div>
         </footer>
       </body>

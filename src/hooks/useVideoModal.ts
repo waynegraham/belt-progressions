@@ -63,7 +63,9 @@ export function useVideoModal({
     const nextParams = new URLSearchParams(searchParamsString);
     nextParams.delete("video");
     const nextQuery = nextParams.toString();
-    const nextUrl = nextQuery ? `${currentPathname}?${nextQuery}` : currentPathname;
+    const nextUrl = nextQuery
+      ? `${currentPathname}?${nextQuery}`
+      : currentPathname;
     router.replace(nextUrl, { scroll: false });
   }, [currentPathname, router, searchParamsString]);
 
@@ -75,7 +77,9 @@ export function useVideoModal({
       }
       const nextParams = new URLSearchParams(searchParamsString);
       nextParams.set("video", videoId);
-      router.push(`${currentPathname}?${nextParams.toString()}`, { scroll: false });
+      router.push(`${currentPathname}?${nextParams.toString()}`, {
+        scroll: false,
+      });
     },
     [currentPathname, router, searchParamsString],
   );
@@ -153,8 +157,12 @@ export function useVideoModal({
         "select:not([disabled])",
         '[tabindex]:not([tabindex="-1"])',
       ];
-      const focusable = Array.from(dialog.querySelectorAll<HTMLElement>(selectors.join(","))).filter(
-        (element) => !element.hasAttribute("disabled") && element.getAttribute("aria-hidden") !== "true",
+      const focusable = Array.from(
+        dialog.querySelectorAll<HTMLElement>(selectors.join(",")),
+      ).filter(
+        (element) =>
+          !element.hasAttribute("disabled") &&
+          element.getAttribute("aria-hidden") !== "true",
       );
       if (focusable.length === 0) {
         event.preventDefault();

@@ -28,7 +28,12 @@ interface HarnessProps {
   replace?: jest.Mock;
 }
 
-function Harness({ search, pathname = "/white-to-blue", push, replace }: HarnessProps) {
+function Harness({
+  search,
+  pathname = "/white-to-blue",
+  push,
+  replace,
+}: HarnessProps) {
   const router = {
     push: push ?? jest.fn(),
     replace: replace ?? jest.fn(),
@@ -78,7 +83,9 @@ describe("useVideoModal", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "Open m1" }));
 
-    expect(push).toHaveBeenCalledWith("/white-to-blue?foo=bar&video=m1", { scroll: false });
+    expect(push).toHaveBeenCalledWith("/white-to-blue?foo=bar&video=m1", {
+      scroll: false,
+    });
   });
 
   it("removes only video param when closing", () => {
@@ -87,7 +94,9 @@ describe("useVideoModal", () => {
 
     fireEvent.click(screen.getByText("Close"));
 
-    expect(replace).toHaveBeenCalledWith("/white-to-blue?foo=bar", { scroll: false });
+    expect(replace).toHaveBeenCalledWith("/white-to-blue?foo=bar", {
+      scroll: false,
+    });
   });
 
   it("derives active move and embed url from query param", () => {

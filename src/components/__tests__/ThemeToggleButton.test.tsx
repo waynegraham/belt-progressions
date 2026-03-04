@@ -10,7 +10,9 @@ describe("ThemeToggleButton", () => {
   it("toggles the theme and updates aria state", () => {
     render(<ThemeToggleButton />);
 
-    const button = screen.getByRole("button", { name: /switch to dark theme/i });
+    const button = screen.getByRole("button", {
+      name: /switch to dark theme/i,
+    });
     expect(button).toHaveAttribute("aria-pressed", "false");
 
     fireEvent.click(button);

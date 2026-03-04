@@ -19,7 +19,10 @@ const testModeCopyByTrack: Record<
   { completionRankLabel: string; jumpLabel: string }
 > = {
   "white-to-blue": { completionRankLabel: "blue", jumpLabel: "Jump to Purple" },
-  "blue-to-purple": { completionRankLabel: "purple", jumpLabel: "Jump to Brown" },
+  "blue-to-purple": {
+    completionRankLabel: "purple",
+    jumpLabel: "Jump to Brown",
+  },
   "purple-to-brown": { completionRankLabel: "brown", jumpLabel: "Jump Ahead" },
 };
 
@@ -35,14 +38,19 @@ export default function BeltMovesPage({ track }: BeltMovesPageProps) {
   const primaryTheme = primaryThemeByTrack[track.slug];
   const testModeCopy = testModeCopyByTrack[track.slug];
 
-  const allMoves = useMemo(() => [...track.moves].sort((a, b) => a.order - b.order), [track.moves]);
+  const allMoves = useMemo(
+    () => [...track.moves].sort((a, b) => a.order - b.order),
+    [track.moves],
+  );
 
   const filteredMoves = useMemo(() => {
     if (!cleanedQuery) {
       return allMoves;
     }
 
-    return allMoves.filter((move) => moveMatchesQuery(move.name, move.summary, move.tags, cleanedQuery));
+    return allMoves.filter((move) =>
+      moveMatchesQuery(move.name, move.summary, move.tags, cleanedQuery),
+    );
   }, [allMoves, cleanedQuery]);
 
   const normalizedCategories = useMemo(() => {
@@ -64,24 +72,41 @@ export default function BeltMovesPage({ track }: BeltMovesPageProps) {
         .map((category) => ({
           ...category,
           moves: category.moves
-            .filter((move) => moveMatchesQuery(move.name, move.summary, move.tags, cleanedQuery))
+            .filter((move) =>
+              moveMatchesQuery(
+                move.name,
+                move.summary,
+                move.tags,
+                cleanedQuery,
+              ),
+            )
             .sort((a, b) => a.order - b.order),
         }))
         .filter((category) => category.moves.length > 0),
     [cleanedQuery, normalizedCategories],
   );
-  const { activeMove, activeEmbedUrl, closeVideoModal, openVideoModal, mainRef, dialogRef, closeButtonRef } =
-    useVideoModal({
-      allMoves,
-      currentPathname,
-      searchParams,
-      searchParamsString,
-      router,
-    });
+  const {
+    activeMove,
+    activeEmbedUrl,
+    closeVideoModal,
+    openVideoModal,
+    mainRef,
+    dialogRef,
+    closeButtonRef,
+  } = useVideoModal({
+    allMoves,
+    currentPathname,
+    searchParams,
+    searchParamsString,
+    router,
+  });
 
   return (
     <>
-      <main ref={mainRef} className="min-h-screen bg-[var(--background)] p-4 text-[var(--foreground)] md:p-8">
+      <main
+        ref={mainRef}
+        className="min-h-screen bg-[var(--background)] p-4 text-[var(--foreground)] md:p-8"
+      >
         <div className="mx-auto max-w-4xl space-y-5">
           <BeltMovesHeader
             track={track}
@@ -133,7 +158,12 @@ export default function BeltMovesPage({ track }: BeltMovesPageProps) {
   );
 }
 
-function moveMatchesQuery(name: string, summary: string, tags: string[], query: string): boolean {
+function moveMatchesQuery(
+  name: string,
+  summary: string,
+  tags: string[],
+  query: string,
+): boolean {
   if (!query) {
     return true;
   }

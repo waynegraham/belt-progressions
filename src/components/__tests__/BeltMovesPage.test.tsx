@@ -101,19 +101,33 @@ describe("BeltMovesPage", () => {
   it("filters move results from search input and shows empty state", () => {
     render(<BeltMovesPage track={track} />);
 
-    expect(screen.getByRole("link", { name: "Alpha Pass" })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Beta Sweep" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "Alpha Pass" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "Beta Sweep" }),
+    ).toBeInTheDocument();
 
-    fireEvent.change(screen.getByRole("textbox", { name: "Search techniques" }), {
-      target: { value: "guard" },
-    });
+    fireEvent.change(
+      screen.getByRole("textbox", { name: "Search techniques" }),
+      {
+        target: { value: "guard" },
+      },
+    );
 
-    expect(screen.queryByRole("link", { name: "Alpha Pass" })).not.toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Beta Sweep" })).toBeInTheDocument();
+    expect(
+      screen.queryByRole("link", { name: "Alpha Pass" }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "Beta Sweep" }),
+    ).toBeInTheDocument();
 
-    fireEvent.change(screen.getByRole("textbox", { name: "Search techniques" }), {
-      target: { value: "no-matches-here" },
-    });
+    fireEvent.change(
+      screen.getByRole("textbox", { name: "Search techniques" }),
+      {
+        target: { value: "no-matches-here" },
+      },
+    );
 
     expect(screen.getByText("No moves match that search.")).toBeInTheDocument();
   });
@@ -123,8 +137,12 @@ describe("BeltMovesPage", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "Test Mode" }));
 
-    expect(screen.getByRole("button", { name: "Exit Test Mode" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Exit Fullscreen" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Exit Test Mode" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Exit Fullscreen" }),
+    ).toBeInTheDocument();
     expect(screen.getByText("Move 1 of 3")).toBeInTheDocument();
   });
 
@@ -132,7 +150,9 @@ describe("BeltMovesPage", () => {
     mockSearchParams = new URLSearchParams("video=m2");
     render(<BeltMovesPage track={track} />);
 
-    expect(screen.getByRole("dialog", { name: "Beta Sweep video" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("dialog", { name: "Beta Sweep video" }),
+    ).toBeInTheDocument();
     expect(screen.getByTitle("Beta Sweep")).toHaveAttribute(
       "src",
       "https://www.youtube.com/embed/xyz987?rel=0&start=62",
@@ -140,7 +160,9 @@ describe("BeltMovesPage", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "Close" }));
 
-    expect(mockReplace).toHaveBeenCalledWith("/white-to-blue", { scroll: false });
+    expect(mockReplace).toHaveBeenCalledWith("/white-to-blue", {
+      scroll: false,
+    });
   });
 
   it("pushes video query param when clicking a move link", () => {
@@ -149,7 +171,9 @@ describe("BeltMovesPage", () => {
 
     fireEvent.click(screen.getByRole("link", { name: "Alpha Pass" }));
 
-    expect(mockPush).toHaveBeenCalledWith("/white-to-blue?foo=bar&video=m1", { scroll: false });
+    expect(mockPush).toHaveBeenCalledWith("/white-to-blue?foo=bar&video=m1", {
+      scroll: false,
+    });
   });
 
   it("shows fallback when video URL cannot be embedded", () => {
@@ -157,6 +181,8 @@ describe("BeltMovesPage", () => {
     render(<BeltMovesPage track={track} />);
 
     expect(screen.getByText("Unable to embed this video.")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Open on YouTube" })).toHaveAttribute("href", "not-a-url");
+    expect(
+      screen.getByRole("link", { name: "Open on YouTube" }),
+    ).toHaveAttribute("href", "not-a-url");
   });
 });

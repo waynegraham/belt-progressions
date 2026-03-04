@@ -21,9 +21,13 @@ describe("BeltTrainingPage route coordinator", () => {
 
     render(element);
 
-    expect(screen.getByRole("heading", { name: "Test Preparation Guide" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Test Preparation Guide" }),
+    ).toBeInTheDocument();
     expect(screen.getByText("Blue Belt Test Preparation")).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "How to Ask Better Questions" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "How to Ask Better Questions" }),
+    ).toBeInTheDocument();
   });
 
   it("renders the blue-to-purple guide for blue-to-purple slug", async () => {
@@ -33,9 +37,15 @@ describe("BeltTrainingPage route coordinator", () => {
 
     render(element);
 
-    expect(screen.getByRole("heading", { name: "Test Preparation Guide" })).toBeInTheDocument();
-    expect(screen.getByText("Purple Belt Test Preparation")).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Show Your Game" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Test Preparation Guide" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText("Purple Belt Test Preparation"),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Show Your Game" }),
+    ).toBeInTheDocument();
   });
 
   it("renders generic guide for purple-to-brown slug", async () => {
@@ -45,10 +55,14 @@ describe("BeltTrainingPage route coordinator", () => {
 
     render(element);
 
-    expect(screen.getByRole("heading", { name: "Test Preparation Guide" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Test Preparation Guide" }),
+    ).toBeInTheDocument();
     expect(screen.getByText("Brown Belt Test Preparation")).toBeInTheDocument();
     expect(
-      screen.getByText("Use this page to structure weekly sessions and prepare for evaluation."),
+      screen.getByText(
+        "Use this page to structure weekly sessions and prepare for evaluation.",
+      ),
     );
     expect(screen.getByText("Constraint-Based Sparring")).toBeInTheDocument();
   });
