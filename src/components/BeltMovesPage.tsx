@@ -21,9 +21,9 @@ const testModeCopyByTrack: Record<
   "white-to-blue": { completionRankLabel: "blue", jumpLabel: "Jump to Purple" },
   "blue-to-purple": {
     completionRankLabel: "purple",
-    jumpLabel: "Jump to Brown",
+    jumpLabel: "Jump to Purple",
   },
-  "purple-to-brown": { completionRankLabel: "brown", jumpLabel: "Jump Ahead" },
+  "purple-to-brown": { completionRankLabel: "brown", jumpLabel: "Jump to Brown" },
 };
 
 export default function BeltMovesPage({ track }: BeltMovesPageProps) {
