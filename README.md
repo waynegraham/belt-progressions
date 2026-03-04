@@ -11,6 +11,7 @@ The project unifies curriculum review and preparation workflows for:
 ## Features
 
 - Curriculum pages grouped by section with searchable moves and notes
+- Google Analytics via `NEXT_PUBLIC_GA_ID`
 - Video modal playback with YouTube timestamp support
 - Fullscreen Test Mode
 - Swipe navigation (up/right next, down/left previous)
@@ -44,19 +45,25 @@ The project unifies curriculum review and preparation workflows for:
 
 ## Local Development
 
+1. Configure environment variables:
+
+```bash
+cp .env.example .env.local
+```
+
 1. Install dependencies:
 
 ```bash
 npm install
 ```
 
-2. Start the dev server:
+1. Start the dev server:
 
 ```bash
 npm run dev
 ```
 
-3. Open:
+1. Open:
    `http://localhost:3000`
 
 ## Scripts
