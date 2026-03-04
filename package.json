@@ -8,20 +8,17 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
     "test": "jest",
     "test:e2e": "playwright test",
     "test:e2e:headed": "playwright test --headed"
   },
   "dependencies": {
-    "flowbite-react": "^0.12.17",
-    "identity-obj-proxy": "^3.0.0",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "react-ga4": "^2.1.0",
-    "react-icons": "^5.5.0",
-    "react-screen-wake-lock": "^3.1.1",
-    "react-swipeable": "^7.0.2"
+    "react-icons": "^5.5.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.58.2",
@@ -38,7 +35,7 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.2",
-    "eslint-plugin-tailwindcss": "^3.18.2",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^30.2.0",
     "jest-environment-jsdom": "^30.2.0",
     "playwright": "^1.58.2",

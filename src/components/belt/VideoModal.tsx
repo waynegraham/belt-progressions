@@ -54,7 +54,7 @@ export default function VideoModal({
             <div className="flex h-full items-center justify-center p-6 text-center text-sm text-white md:min-h-[360px]">
               <div>
                 <p>Unable to embed this video.</p>
-                <a href={activeMove.youtubeUrl} target="_blank" rel="noreferrer" className="underline">
+                <a href={activeMove.youtubeUrl} target="_blank" rel="noopener noreferrer" className="underline">
                   Open on YouTube
                 </a>
               </div>

@@ -53,7 +53,7 @@ export default function BeltMovesHeader({
       <p>
         <a
           target="_blank"
-          rel="nofollow"
+          rel="nofollow noopener noreferrer"
           href="https://waynegraham.github.io/bjj-study-guide/gracie-jiu-jitsu_compress.pdf"
           className={`text-sm underline underline-offset-2 ${primaryTheme.textClass}`}
         >

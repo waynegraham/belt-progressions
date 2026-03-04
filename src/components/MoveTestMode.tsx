@@ -491,7 +491,7 @@ export default function MoveTestMode({
                   <a
                     href={currentMove.youtubeUrl}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     className={`rounded-full px-6 py-3 text-sm font-semibold text-white transition ${palette.videoButton}`}
                   >
                     Watch Video
