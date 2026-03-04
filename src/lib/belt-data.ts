@@ -1,4 +1,5 @@
 import blueBeltData from "@/lib/blue-belt.json";
+import brownBeltData from "@/lib/brown-belt.json";
 import whiteBeltData from "@/lib/white-belt.json";
 
 export type BeltSlug = "white-to-blue" | "blue-to-purple" | "purple-to-brown";
@@ -84,6 +85,10 @@ const blueToPurpleCategories = mapRawMoveCategories(
   blueBeltData as RawMoveCategory[],
   "b2p",
 );
+const purpleToBrownCategories = mapRawMoveCategories(
+  brownBeltData as RawMoveCategory[],
+  "p2b",
+);
 
 const whiteToBlue: BeltTrack = {
   slug: "white-to-blue",
@@ -168,49 +173,8 @@ const purpleToBrown: BeltTrack = {
     text: "text-zinc-100",
     trackBar: "from-purple-500 to-yellow-900",
   },
-  moves: [
-    {
-      id: "p2b-1",
-      name: "Body Lock Pass",
-      summary: "Collapse hips and advance to chest-to-chest side control.",
-      order: 1,
-      tags: ["guard pass", "pressure"],
-      youtubeUrl: "https://www.youtube.com/watch?v=goA0k9zQ2Q0",
-    },
-    {
-      id: "p2b-2",
-      name: "Arm Triangle from Mount",
-      summary:
-        "Force head-and-arm alignment and finish with shoulder pressure.",
-      order: 2,
-      tags: ["submission", "mount"],
-      youtubeUrl: "https://www.youtube.com/watch?v=E6Mqs7Q9f8A",
-    },
-    {
-      id: "p2b-3",
-      name: "North-South Choke",
-      summary: "Set chest angle and lat pressure from dominant top control.",
-      order: 3,
-      tags: ["submission", "north-south"],
-      youtubeUrl: "https://www.youtube.com/watch?v=QNEOwQ0vPrM",
-    },
-    {
-      id: "p2b-4",
-      name: "Crab Ride Back Take",
-      summary: "Use leg hooks and hip control to expose and secure the back.",
-      order: 4,
-      tags: ["back take", "transition"],
-      youtubeUrl: "https://www.youtube.com/watch?v=ZzIevQ6Jr3g",
-    },
-    {
-      id: "p2b-5",
-      name: "Berimbolo Entry",
-      summary: "Invert with control to off-balance and spin behind the hips.",
-      order: 5,
-      tags: ["inversion", "back take"],
-      youtubeUrl: "https://www.youtube.com/watch?v=2Q6YIqV8Sm0",
-    },
-  ],
+  moves: purpleToBrownCategories.flatMap((category) => category.moves),
+  moveCategories: purpleToBrownCategories,
   trainingRecommendations: [
     {
       title: "Constraint-Based Sparring",
