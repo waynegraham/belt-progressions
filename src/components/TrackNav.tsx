@@ -8,6 +8,7 @@ interface TrackNavProps {
 }
 
 const trackLinks: Array<{ slug: BeltSlug; label: string; href: string }> = [
+  { slug: "home", label: "Home", href: "/" },
   { slug: "white-to-blue", label: "White to Blue", href: "/white-to-blue" },
   { slug: "blue-to-purple", label: "Blue to Purple", href: "/blue-to-purple" },
   {
