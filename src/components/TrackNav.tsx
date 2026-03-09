@@ -1,13 +1,13 @@
 import Link from "next/link";
 import ThemeToggleButton from "@/components/ThemeToggleButton";
-import type { BeltSlug } from "@/lib/belt-data";
+import type { NavSlug } from "@/lib/belt-data";
 
 interface TrackNavProps {
-  activeSlug: BeltSlug;
+  activeSlug: NavSlug;
   activeClassName: string;
 }
 
-const trackLinks: Array<{ slug: BeltSlug; label: string; href: string }> = [
+const trackLinks: Array<{ slug: NavSlug; label: string; href: string }> = [
   { slug: "home", label: "Home", href: "/" },
   { slug: "white-to-blue", label: "White to Blue", href: "/white-to-blue" },
   { slug: "blue-to-purple", label: "Blue to Purple", href: "/blue-to-purple" },
