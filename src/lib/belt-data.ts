@@ -3,6 +3,7 @@ import brownBeltData from "@/lib/brown-belt.json";
 import whiteBeltData from "@/lib/white-belt.json";
 
 export type BeltSlug = "white-to-blue" | "blue-to-purple" | "purple-to-brown";
+export type NavSlug = "home" | BeltSlug;
 
 export interface BeltMove {
   id: string;
